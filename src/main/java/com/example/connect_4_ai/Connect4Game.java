@@ -85,6 +85,10 @@ public class Connect4Game {
 
             Canvas canvas = new Canvas(552, 552);
             canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                if(singlePlayer && !player1Turn){
+                    // computer Game
+                    // check computer win
+                }
                 System.out.println(e.getX() + " " + e.getY());
                 int colIndex = getColIndex(e.getX());
                 System.out.println("Index of column : " + colIndex);
