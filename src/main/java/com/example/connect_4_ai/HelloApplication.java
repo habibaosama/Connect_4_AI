@@ -2,10 +2,14 @@ package com.example.connect_4_ai;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -17,7 +21,7 @@ public class HelloApplication extends Application {
         controller.setStage(stage);
         Scene scene = new Scene(root, 552, 580);
         stage.setScene(scene);
-//        stage.getIcons().add();
+        stage.getIcons().add(new Image(new FileInputStream("src\\main\\resources\\images\\connect 4 Icon.jpg")));
         stage.setTitle("Connect 4");
         stage.setResizable(false);
         stage.centerOnScreen();

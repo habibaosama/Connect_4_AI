@@ -11,8 +11,14 @@ import java.io.FileNotFoundException;
 public class HelloController {
     private Stage stage;
     @FXML
-    protected void onHelloButtonClick() throws FileNotFoundException {
-        Connect4Game connect4Game = new Connect4Game();
+    protected void onePlayerGame() throws FileNotFoundException {
+        Connect4Game connect4Game = new Connect4Game(true);
+        connect4Game.startGame(stage);
+    }
+
+    @FXML
+    protected void twoPlayersGame() throws FileNotFoundException {
+        Connect4Game connect4Game = new Connect4Game(false);
         connect4Game.startGame(stage);
     }
 

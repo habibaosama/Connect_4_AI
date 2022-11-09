@@ -16,38 +16,41 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
 
 
 public class Connect4Game {
+    // player 1 red || player 2 yellow
+    private int score1, score2;
     private Label playerTurnLabel;
-    private boolean playerTurn = true;
-
+    private boolean player1Turn = true;
+    private boolean singlePlayer;
     private final Alert alert;
     private ImageView winIcon;
     private ImageView loseIcon;
-
     private final Image boardImage;
     private final Image redCircleImage;
     private final Image yellowCircleImage;
     private char[][] board;
-    private final int[] lastRowIndices;
+    private int[] lastRowIndices;
 
-    public Connect4Game() throws FileNotFoundException {
-        boardImage = new Image(new FileInputStream("C:\\Users\\Dell\\IdeaProjects\\Connect_4_AI\\src\\main\\resources\\images\\board.png"));
-        redCircleImage = new Image(new FileInputStream("C:\\Users\\Dell\\IdeaProjects\\Connect_4_AI\\src\\main\\resources\\images\\red-circle.png"));
-        yellowCircleImage = new Image(new FileInputStream("C:\\Users\\Dell\\IdeaProjects\\Connect_4_AI\\src\\main\\resources\\images\\yellow-circle.png"));
+    public Connect4Game(boolean singlePlayer) throws FileNotFoundException {
+        this.singlePlayer = singlePlayer;
+        boardImage = new Image(new FileInputStream("src\\main\\resources\\images\\board.png"));
+        redCircleImage = new Image(new FileInputStream("src\\main\\resources\\images\\red-circle.png"));
+        yellowCircleImage = new Image(new FileInputStream("src\\main\\resources\\images\\yellow-circle.png"));
         this.board = new char[6][7];
         lastRowIndices = new int[7];
-        Arrays.fill(lastRowIndices, 6);
         alert = new Alert(Alert.AlertType.INFORMATION);
-        setIcons();
+        winIcon = new ImageView(new Image(new FileInputStream("src/main/resources/images/icons8-win-48.png")));
+        loseIcon = new ImageView(new Image(new FileInputStream("src/main/resources/images/icons8-loser-48.png")));
     }
 
     public void startGame(Stage stage) throws FileNotFoundException {
         System.out.println("Starting Game");
         board = new char[6][7];
-        Arrays.fill(lastRowIndices, 6);
+        Arrays.fill(lastRowIndices,5);
         drawBoard(stage);
     }
 
@@ -66,6 +69,17 @@ public class Connect4Game {
             }
         });
 
+        Button backButton = new Button("Back");
+        backButton.setFont(Font.font("Impact", FontWeight.BOLD, 20));
+        backButton.setLayoutX(87);  backButton.setLayoutY(552);
+        backButton.setOnAction(e -> {
+            try {
+                new HelloApplication().start(stage);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
         Canvas canvas = new Canvas(552,552);
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->  {
             System.out.println(e.getX() + " " + e.getY());
@@ -74,7 +88,7 @@ public class Connect4Game {
             if (isValidColumn(colIndex)) {
                 applyChoice(colIndex);
                 draw(canvas.getGraphicsContext2D());
-                if (win(colIndex)) {
+                if (win2(colIndex)) {
                     alert.setGraphic(winIcon);
                     alert.setTitle("WIN");
                     alert.setHeaderText("Congratulations :)");
@@ -86,7 +100,7 @@ public class Connect4Game {
         });
         canvas.getGraphicsContext2D().drawImage(boardImage,0,0,552,552);
         Group root = new Group();
-        root.getChildren().addAll(canvas, playerTurnLabel, restartButton);
+        root.getChildren().addAll(canvas, playerTurnLabel, restartButton,backButton);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -127,80 +141,112 @@ public class Connect4Game {
     }
 
     private boolean isValidColumn(int col) {
-        return col != -1 && board[0][col] != '0';
+        return col > -1 && col < 7 && lastRowIndices[col] > -1;
     }
 
     private void applyChoice(int col) {
-        int row = --lastRowIndices[col];
+        int row = lastRowIndices[col]--;
         board[row][col] = getChar();
     }
 
     private void switchTurns() {
-        playerTurn = !playerTurn;
-        if (playerTurn)
+        player1Turn = !player1Turn;
+        if (player1Turn)
             playerTurnLabel.setText("Player 1 Turn");
         else
             playerTurnLabel.setText("Player 2 Turn");
     }
 
     private char getChar() {
-        if (playerTurn)
+        if (player1Turn)
             return 'r';
         else
             return 'y';
     }
 
-    private boolean win(int col) {
+    private boolean win2(int col){
+        int row = lastRowIndices[col]+1;
         char color = getChar();
-        int row = lastRowIndices[col];
-        int count = 0;
-        for (int i = row + 1; i <= row + 3 && i < 6; i++) {
-            if (board[i][col] == color)
+        int leftCount = 0, rightCount = 0;
+        // vertical check
+        for(int i = row + 1; i < row + 4; i++){
+            if(i < 6 && board[i][col] == color)
+                rightCount++;
+            else
                 break;
-            count++;
         }
-        if (count == 3)
-            return true;
-        count = 0;
-        for (int j = col + 1; j <= col + 3 && j < 7; j++) {
-            if (board[j][col] != color)
+
+        for(int i = row - 1; i > row - 4; i--){
+            if(i > -1 && board[i][col] == color)
+                leftCount++;
+            else
                 break;
-            count++;
         }
-        if (count == 3)
+        if(leftCount + rightCount + 1 > 3)
             return true;
-        count = 0;
-        for (int i = 1; i <= 3; i++) {
-            if (row + i < 6 && col + i < 7) {
-                if (board[row + i][col + i] != color)
-                    break;
-                count++;
-            }
+
+        // horizontal check
+        leftCount = 0; rightCount = 0;
+        for(int j = col + 1; j < col + 4; j++){
+            if(j < 7 && board[row][j] == color)
+                rightCount++;
+            else
+                break;
         }
-        if (count == 3)
+
+        for(int j = col - 1; j > col - 4; j--){
+            if(j > -1 && board[row][j] == color)
+                leftCount++;
+            else
+                break;
+        }
+        if(leftCount + rightCount + 1 > 3)
             return true;
-        count = 0;
-        for (int i = 1; i <= 3; i++) {
-            if (row + i < 6 && col - i >= 0) {
-                if (board[row + i][col - i] != color)
-                    break;
-                count++;
-            }
+
+        // right diagonal check
+        leftCount = 0; rightCount = 0;
+        for(int k = 1; k < 4; k++){
+            if(row - k > -1 && col + k < 7 && board[row - k][col + k] == color)
+                rightCount++;
+            else
+                break;
         }
-        return count == 3;
+
+        for(int k = 1; k < 4; k++){
+            if(row + k < 6 && col - k > -1 && board[row+k][col - k] == color)
+                leftCount++;
+            else
+                break;
+        }
+        if(leftCount + rightCount + 1 > 3)
+            return true;
+
+        // left diagonal check
+        leftCount = 0; rightCount = 0;
+
+        for(int k = 1; k < 4; k++){
+            if(row + k < 6 && col + k < 7 && board[row+k][col+k] == color)
+                rightCount++;
+            else
+                break;
+        }
+
+        for(int k = 1; k < 4; k++){
+            if(row - k > -1 && col - k > -1 && board[row - k][ col - k] == color)
+                leftCount++;
+            else
+                break;
+        }
+        if(leftCount + rightCount + 1 > 3)
+            return true;
+        return false;
     }
 
     private boolean isFull() {
         for (int index : lastRowIndices) {
-            if (index > 0)
+            if (index > -1)
                 return false;
         }
         return true;
     }
-
-    private void setIcons() {
-        winIcon = new ImageView("C:\\Users\\Dell\\IdeaProjects\\Connect_4_AI\\src\\main\\resources\\images\\icons8-win-48.png");
-        loseIcon = new ImageView("C:\\Users\\Dell\\IdeaProjects\\Connect_4_AI\\src\\main\\resources\\images\\icons8-loser-48.png");
-    }
-
 }
