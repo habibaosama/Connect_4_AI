@@ -46,7 +46,8 @@ public class Connect4Game {
 
     public void startGame(Stage stage) throws FileNotFoundException {
         System.out.println("Starting Game");
-        this.board = new char[6][7];
+        board = new char[6][7];
+        Arrays.fill(lastRowIndices, 6);
         drawBoard(stage);
     }
 
@@ -79,6 +80,7 @@ public class Connect4Game {
                     alert.setHeaderText("Congratulations :)");
                     alert.show();
                 }
+                switchTurns();
             }
 
         });
@@ -131,7 +133,6 @@ public class Connect4Game {
     private void applyChoice(int col) {
         int row = --lastRowIndices[col];
         board[row][col] = getChar();
-        switchTurns();
     }
 
     private void switchTurns() {

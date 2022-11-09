@@ -17,6 +17,7 @@ public class HelloApplication extends Application {
         controller.setStage(stage);
         Scene scene = new Scene(root, 552, 580);
         stage.setScene(scene);
+//        stage.getIcons().add();
         stage.setTitle("Connect 4");
         stage.setResizable(false);
         stage.centerOnScreen();
