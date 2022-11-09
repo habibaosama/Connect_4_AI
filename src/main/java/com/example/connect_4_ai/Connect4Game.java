@@ -34,9 +34,9 @@ public class Connect4Game {
     private final int[] lastRowIndices;
 
     public Connect4Game() throws FileNotFoundException {
-        String boardPNG = String.format("file:src/main/resources/images/board.png");
-        String redCirclePNG = String.format("file:src/main/resources/images/red-circle.png");
-        String yellowCirclePNG = String.format("file:src/main/resources/images/yellow-circle.png");
+        String boardPNG = "file:src/main/resources/images/board.png";
+        String redCirclePNG = "file:src/main/resources/images/red-circle.png";
+        String yellowCirclePNG = "file:src/main/resources/images/yellow-circle.png";
         boardImage = new Image(boardPNG);
         redCircleImage = new Image(redCirclePNG);
         yellowCircleImage = new Image(yellowCirclePNG);
@@ -202,8 +202,8 @@ public class Connect4Game {
     }
 
     private void setIcons() {
-        String icon1 = String.format("file:src/main/resources/images/icons8-win-48.png");
-        String icon2 = String.format("file:src/main/resources/images/icons8-loser-48.png");
+        String icon1 = "file:src/main/resources/images/icons8-win-48.png";
+        String icon2 = "file:src/main/resources/images/icons8-loser-48.png";
         winIcon = new ImageView(icon1);
         loseIcon = new ImageView(icon2);
     }
