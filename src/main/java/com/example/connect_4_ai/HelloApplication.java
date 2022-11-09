@@ -21,7 +21,8 @@ public class HelloApplication extends Application {
         controller.setStage(stage);
         Scene scene = new Scene(root, 552, 580);
         stage.setScene(scene);
-        stage.getIcons().add(new Image(new FileInputStream("src\\main\\resources\\images\\connect 4 Icon.jpg")));
+        String icon = "file:src/main/resources/images/connect 4 Icon.jpg";
+        stage.getIcons().add(new Image(icon));
         stage.setTitle("Connect 4");
         stage.setResizable(false);
         stage.centerOnScreen();
