@@ -125,8 +125,8 @@ public class Connect4Game {
         playerTurnLabel = createLabel("Player 1 Turn", 200);
         score1Label = createLabel("Score " + score1, 360);
         score2Label = createLabel("Score " + score2, 450);
-        score1Label.setTextFill(Color.RED);
-        score2Label.setTextFill(Color.YELLOW);
+        score1Label.setTextFill(Color.YELLOW);
+        score2Label.setTextFill(Color.RED);
         Button restartButton = new Button("Restart");
         restartButton.setFont(Font.font("Impact", FontWeight.BOLD, 20));
         restartButton.setLayoutX(0);
@@ -169,9 +169,8 @@ public class Connect4Game {
 
             }
 
-
             if (singlePlayer && !player1Turn) {
-               colIndex = playAI();
+                colIndex = playAI();
                 play(colIndex);
                 draw(context);
             }
@@ -258,9 +257,9 @@ public class Connect4Game {
 
     private char getChar() {
         if (player1Turn)
-            return 'r';
-        else
             return 'y';
+        else
+            return 'r';
     }
 
     private boolean win(int col) {
