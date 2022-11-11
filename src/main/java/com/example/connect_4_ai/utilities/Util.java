@@ -16,6 +16,12 @@ public class Util {
        return (int) ((number >> index) & 1);
     }
 
+    public static long alternateBit(long number, int index){
+        if(getBit(number,index) == 1)
+            return clearBit(number,index);
+        return setBit(number,index);
+    }
+
     public static boolean isValid(long number, int from, int to){
       for(int i = from; i <= to; i++){
           if(getBit(number,i) == 1)
