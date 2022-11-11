@@ -1,20 +1,22 @@
 package com.example.connect_4_ai;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
@@ -23,6 +25,7 @@ import java.util.Arrays;
 public class Connect4Game {
     // player 1 red || player 2 yellow
     private int score1, score2;
+    private Label score1Label, score2Label;
     private Label playerTurnLabel;
     private boolean player1Turn = true;
     private boolean singlePlayer;
@@ -33,10 +36,14 @@ public class Connect4Game {
     private final Image redCircleImage;
     private final Image yellowCircleImage;
     private char[][] board;
-    private int[] lastRowIndices;
+    private final int[] lastRowIndices;
+
+    private boolean minimax = true;
+    private int k = 4;
 
     public Connect4Game(boolean singlePlayer) throws FileNotFoundException {
         this.singlePlayer = singlePlayer;
+        score1 = 0; score2 = 0;
         String boardPNG = "file:src/main/resources/images/board.png";
         String redCirclePNG = "file:src/main/resources/images/red-circle.png";
         String yellowCirclePNG = "file:src/main/resources/images/yellow-circle.png";
@@ -52,18 +59,73 @@ public class Connect4Game {
         loseIcon = new ImageView(new Image(icon2));
     }
 
+    public void chooseAiAgent(Stage stage) {
+        Group group = new Group();
+        ObservableList<String> options =
+                FXCollections.observableArrayList(
+                        "Minimax Without Pruning",
+                        "Minimax With Pruning"
+                );
+        ComboBox<String> comboBox = new ComboBox<>(options);
+        comboBox.setOnAction(e -> {
+            String choice = comboBox.getValue();
+            minimax = !choice.equals("Minimax With Pruning");
+        });
+        comboBox.getSelectionModel().selectFirst();
+        comboBox.setLayoutX(180);
+        comboBox.setLayoutY(210);
+//        comboBox.setStyle("-fx-font: 15px \"Impact\";");
+        TextField textField = new TextField();
+        textField.setPromptText("Input k");
+        textField.setLayoutX(180);
+        textField.setLayoutY(250);
+        textField.setPrefWidth(210);
+        Button start = new Button("Start Game");
+        start.setLayoutX(230);
+        start.setLayoutY(300);
+        Button back = new Button("Back");
+        back.setLayoutX(250);
+        back.setLayoutY(340);
+
+
+        start.setOnAction(e -> {
+            try {
+                k = Integer.parseInt(textField.getText());
+                System.out.println("k = " + k);
+                startGame(stage);
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        back.setOnAction(e -> {
+            try {
+                new HelloApplication().start(stage);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        ImageView imageView = new ImageView("file:src/main/resources/images/connect-4-1.jpg");
+        group.getChildren().addAll(imageView, comboBox, textField, start, back);
+        group.setStyle("-fx-font: 15px \"Impact\";");
+        Scene scene = new Scene(group, 552, 580);
+        stage.setScene(scene);
+    }
     public void startGame(Stage stage) throws FileNotFoundException {
         System.out.println("Starting Game");
+        player1Turn = true;
         board = new char[6][7];
-        Arrays.fill(lastRowIndices, 5);
+        score1 = 0; score2 = 0;
+        Arrays.fill(lastRowIndices, 6);
         drawBoard(stage);
     }
 
     private void drawBoard(Stage stage) {
-        playerTurnLabel = new Label("Player 1 Turn");
-        playerTurnLabel.setFont(Font.font("Impact", FontWeight.BOLD, 20));
-        playerTurnLabel.setLayoutX(230);
-        playerTurnLabel.setLayoutY(555);
+        playerTurnLabel = createLabel("Player 1 Turn", 200);
+        score1Label = createLabel("Score " + score1, 360);
+        score2Label = createLabel("Score " + score2, 450);
+        score1Label.setTextFill(Color.RED);
+        score2Label.setTextFill(Color.YELLOW);
         Button restartButton = new Button("Restart");
         restartButton.setFont(Font.font("Impact", FontWeight.BOLD, 20));
         restartButton.setLayoutX(0);
@@ -89,30 +151,33 @@ public class Connect4Game {
         });
 
         Canvas canvas = new Canvas(552, 552);
+        GraphicsContext context = canvas.getGraphicsContext2D();
+
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            if (singlePlayer && !player1Turn) {
-                // computer Game
-                // check computer win
-            }
+//            if (singlePlayer && !player1Turn) {
+//                return;
+//                // computer Game
+//                // check computer win
+//            }
             System.out.println(e.getX() + " " + e.getY());
             int colIndex = getColIndex(e.getX());
             System.out.println("Index of column : " + colIndex);
-            if (isValidColumn(colIndex)) {
-                applyChoice(colIndex);
-                draw(canvas.getGraphicsContext2D());
-                if (win2(colIndex)) {
-                    alert.setGraphic(winIcon);
-                    alert.setTitle("WIN");
-                    alert.setHeaderText("Congratulations :)");
-                    alert.show();
-                }
-                switchTurns();
+            play(colIndex);
+            draw(context);
+            if (isFull()) {
+
             }
 
+
+            if (singlePlayer && !player1Turn) {
+//                colIndex = 0; // col index of computer turn
+//                play(colIndex);
+//                draw(context);
+            }
         });
-        canvas.getGraphicsContext2D().drawImage(boardImage, 0, 0, 552, 552);
+        context.drawImage(boardImage, 0, 0, 552, 552);
         Group root = new Group();
-        root.getChildren().addAll(canvas, playerTurnLabel, restartButton, backButton);
+        root.getChildren().addAll(canvas, playerTurnLabel, score1Label, score2Label, restartButton, backButton);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -146,18 +211,39 @@ public class Connect4Game {
         };
     }
 
+    private Label createLabel(String Title, int x) {
+        Label label= new Label(Title);
+        label.setFont(Font.font("Impact", FontWeight.BOLD, 20));
+        label.setLayoutX(x);
+        label.setLayoutY(555);
+        return label;
+    }
+
     private int getColIndex(double x) {
         if (x <= 16 || x >= 536)
             return -1;
         return (int) (x - 16) / 75;
     }
 
+    private void play(int col) {
+        if (isValidColumn(col)) {
+            applyChoice(col);
+            if (win(col)) {
+                System.out.println("Win Situation");
+                score1 += player1Turn ? 1 : 0;
+                score2 += !player1Turn ? 1 : 0;
+                score1Label.setText("Score " + score1);
+                score2Label.setText("Score " + score2);
+            }
+            switchTurns();
+        }
+    }
     private boolean isValidColumn(int col) {
-        return col > -1 && col < 7 && lastRowIndices[col] > -1;
+        return col >= 0 && col <= 6 && lastRowIndices[col] > 0;
     }
 
     private void applyChoice(int col) {
-        int row = lastRowIndices[col]--;
+        int row = --lastRowIndices[col];
         board[row][col] = getChar();
     }
 
@@ -176,92 +262,93 @@ public class Connect4Game {
             return 'y';
     }
 
-    private boolean win2(int col) {
-        int row = lastRowIndices[col] + 1;
+    private boolean win(int col) {
+        int row = lastRowIndices[col];
         char color = getChar();
-        int leftCount = 0, rightCount = 0;
+        int count = 0;
         // vertical check
-        for (int i = row + 1; i < row + 4; i++) {
-            if (i < 6 && board[i][col] == color)
-                rightCount++;
-            else
-                break;
-        }
 
-        for (int i = row - 1; i > row - 4; i--) {
-            if (i > -1 && board[i][col] == color)
-                leftCount++;
-            else
+        for (int i = row + 1; i < row + 4 && i < 6; i++) {
+            if (board[i][col] != color)
                 break;
+            count++;
         }
-        if (leftCount + rightCount + 1 > 3)
+//
+//
+        if (count == 3)
             return true;
-
+//
+        count = 0;
         // horizontal check
-        leftCount = 0;
-        rightCount = 0;
-        for (int j = col + 1; j < col + 4; j++) {
-            if (j < 7 && board[row][j] == color)
-                rightCount++;
-            else
+        for (int j = col + 1; j < col + 4 && j < 7; j++) {
+            if (board[row][j] != color)
                 break;
+            count++;
         }
 
-        for (int j = col - 1; j > col - 4; j--) {
-            if (j > -1 && board[row][j] == color)
-                leftCount++;
-            else
+        for (int j = col - 1; j > col - 4 && j >= 0; j--) {
+            if (board[row][j] != color)
                 break;
+            count++;
         }
-        if (leftCount + rightCount + 1 > 3)
+        if (count >= 3)
             return true;
-
+//
         // right diagonal check
-        leftCount = 0;
-        rightCount = 0;
-        for (int k = 1; k < 4; k++) {
-            if (row - k > -1 && col + k < 7 && board[row - k][col + k] == color)
-                rightCount++;
-            else
+        count = 0;
+
+        for (int k = 1; k <= 3; k++) {
+            if (row - k < 0 || col + k > 6 || board[row - k][col + k] != color)
                 break;
+            count++;
         }
 
-        for (int k = 1; k < 4; k++) {
-            if (row + k < 6 && col - k > -1 && board[row + k][col - k] == color)
-                leftCount++;
-            else
+        for (int k = 1; k <= 3; k++) {
+            if (row + k > 5 || col - k < 0 || board[row + k][col - k] != color)
                 break;
+            count++;
         }
-        if (leftCount + rightCount + 1 > 3)
+
+        if (count >= 3)
             return true;
 
         // left diagonal check
-        leftCount = 0;
-        rightCount = 0;
+        count = 0;
 
-        for (int k = 1; k < 4; k++) {
-            if (row + k < 6 && col + k < 7 && board[row + k][col + k] == color)
-                rightCount++;
-            else
+        for (int k = 1; k <= 3; k++) {
+            if (row + k > 5 || col + k > 6 || board[row + k][col + k] != color)
                 break;
+            count++;
         }
 
-        for (int k = 1; k < 4; k++) {
-            if (row - k > -1 && col - k > -1 && board[row - k][col - k] == color)
-                leftCount++;
-            else
+        for (int k = 1; k <= 3; k++) {
+            if (row - k < 0 || col - k < 0 || board[row - k][col - k] != color)
                 break;
+            count++;
         }
-        if (leftCount + rightCount + 1 > 3)
-            return true;
-        return false;
+
+        return count >= 3;
     }
 
     private boolean isFull() {
         for (int index : lastRowIndices) {
-            if (index > -1)
+            if (index > 0)
                 return false;
         }
         return true;
     }
+
 }
+
+
+//if (isValidColumn(colIndex)) {
+//        applyChoice(colIndex);
+//        draw(canvas.getGraphicsContext2D());
+//        if (win(colIndex)) {
+//        alert.setGraphic(winIcon);
+//        alert.setTitle("WIN");
+//        alert.setHeaderText("Congratulations :)");
+//        alert.show();
+//        }
+//        switchTurns();
+//  }
