@@ -16,7 +16,7 @@ public class MinimaxWithoutPruning implements IMinimax{
     //r ->cpu
     public NodeState maximize(char[][] board, int level) {
 
-        if (level == 4 || EvaluationState.isTerminal(board)) {
+        if (level == 6 || EvaluationState.isTerminal(board)) {
             int eval = Evaluation.eval(board, 'r');
             //int eval = Evaluation.eval(board);
             return new NodeState(null, eval);
@@ -36,7 +36,7 @@ public class MinimaxWithoutPruning implements IMinimax{
 
     public NodeState minimize(char[][] board, int level) {
 
-        if (level == 4 || EvaluationState.isTerminal(board)) {
+        if (level == 6 || EvaluationState.isTerminal(board)) {
             int eval = Evaluation.eval(board, 'y');
             // int eval = Evaluation.eval(board);
             return new NodeState(null, eval);

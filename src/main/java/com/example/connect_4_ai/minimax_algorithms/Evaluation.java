@@ -22,6 +22,7 @@ public class Evaluation {
                 }
             }
         }
+       // System.out.println("Score "+score);
 
         return score;
     }
@@ -45,7 +46,10 @@ public class Evaluation {
             i += dx;
             j += dy;
         }
-        if (playerPoints == 4)
+       /* System.out.println("player "+ playerPoints);
+        System.out.println("op "+ opPoints);
+        System.out.println("empty "+ empty);*/
+        /*if (playerPoints == 4)
             points += 100;
         else if (playerPoints == 3 && empty == 1)
             points += 5;
@@ -61,8 +65,8 @@ public class Evaluation {
         if(opPoints== 4 )
             points-=200;
 
-        return points;
-        //return calculatePoints(-opPoints, playerPoints);
+        return points;*/
+        return calculatePoints(opPoints, playerPoints,empty);
     }
 
     private static boolean checkBounds(int i, int j) {
@@ -70,21 +74,23 @@ public class Evaluation {
         return true;
     }
 
-   /* private static int calculatePoints(int opPoints, int playerPoints) {
-        int op = switch (opPoints) {
-            case -4 -> opPoints * 100000;
-            case -3 -> opPoints * 100;
-            case -2 -> opPoints * 10;
-            default -> 0;
-        };
-        int player = switch (playerPoints) {
-            case 4 -> 4 * 100000;
-            case 3 -> 3 * 100;
-            case 2 -> 2 * 10;
-            default -> 0;
-        };
-        return op + player;
-    }*/
+    private static int calculatePoints(int opPoints, int playerPoints,int empty) {
+         if(playerPoints==4){
+            return 100;
+        }else if(playerPoints==3 && empty==1){
+            return 20;
+        }else if(playerPoints==2 && empty==2){
+            return 6;
+        }
+        if(opPoints==4){
+            return -1*150;
+        }else if(opPoints==3 && empty==1){
+            return -60;
+       }else if(opPoints==2 && empty==2){
+            return -1*6;
+        }
+        return 0;
+    }
 
 
 }

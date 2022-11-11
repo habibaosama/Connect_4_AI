@@ -17,12 +17,18 @@ public class Node {
     public void expand(){
         for(int col = 0; col <= 7; col++){
             if(state.isValidColumn(col)){
-                Node child = new Node(this,new State(Util.alternateBit(
-                        state.applyChoice(col,Util.getBit(state.board,63) == 0),63)
+                Node child = new Node(this,new State(Util.alternateBit(state.applyChoice(col,Util.getBit(state.board,63) == 0),63)
                 ));
                 children.add(child);
                 child.depth = depth+1;
             }
         }
+    }
+    public  boolean isTerminal() {
+        for (int i = 0; i <7; i++){
+            if(state.isValidColumn(i))
+                return false;
+        }
+        return true;
     }
 }

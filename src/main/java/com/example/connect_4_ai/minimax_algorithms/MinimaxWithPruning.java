@@ -1,6 +1,7 @@
 package com.example.connect_4_ai.minimax_algorithms;
 
 import com.example.connect_4_ai.NodeState;
+import com.example.connect_4_ai.utilities.Node;
 
 public class MinimaxWithPruning implements IMinimax{
 

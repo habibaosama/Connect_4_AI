@@ -1,5 +1,6 @@
 package com.example.connect_4_ai;
 
+import com.example.connect_4_ai.minimax_algorithms.MinimaxWithPruning;
 import com.example.connect_4_ai.minimax_algorithms.MinimaxWithoutPruning;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,7 +45,8 @@ public class Connect4Game {
 
     public Connect4Game(boolean singlePlayer) throws FileNotFoundException {
         this.singlePlayer = singlePlayer;
-        score1 = 0; score2 = 0;
+        score1 = 0;
+        score2 = 0;
         String boardPNG = "file:src/main/resources/images/board.png";
         String redCirclePNG = "file:src/main/resources/images/red-circle.png";
         String yellowCirclePNG = "file:src/main/resources/images/yellow-circle.png";
@@ -112,11 +114,13 @@ public class Connect4Game {
         Scene scene = new Scene(group, 552, 580);
         stage.setScene(scene);
     }
+
     public void startGame(Stage stage) throws FileNotFoundException {
         System.out.println("Starting Game");
         player1Turn = true;
         board = new char[6][7];
-        score1 = 0; score2 = 0;
+        score1 = 0;
+        score2 = 0;
         Arrays.fill(lastRowIndices, 6);
         drawBoard(stage);
     }
@@ -212,7 +216,7 @@ public class Connect4Game {
     }
 
     private Label createLabel(String Title, int x) {
-        Label label= new Label(Title);
+        Label label = new Label(Title);
         label.setFont(Font.font("Impact", FontWeight.BOLD, 20));
         label.setLayoutX(x);
         label.setLayoutY(555);
@@ -238,6 +242,7 @@ public class Connect4Game {
             switchTurns();
         }
     }
+
     private boolean isValidColumn(int col) {
         return col >= 0 && col <= 6 && lastRowIndices[col] > 0;
     }
@@ -339,22 +344,22 @@ public class Connect4Game {
     }
     //////////////////////////////
 
-    private int playAI(){
-        MinimaxWithoutPruning max = new MinimaxWithoutPruning();
-        //  MinimaxWithPruning max = new MinimaxWithPruning();
+    private int playAI() {
+       MinimaxWithoutPruning max = new MinimaxWithoutPruning();
+          //MinimaxWithPruning max = new MinimaxWithPruning();
         char[][] nextBoard = max.Decision(board);
         boolean found = false;
-        int j=0;
-        for(int i=0; i<6; i++){
-            for(j=0; j<7; j++){
-                if(nextBoard[i][j] != board[i][j]){
+        int j = 0;
+        for (int i = 0; i < 6; i++) {
+            for (j = 0; j < 7; j++) {
+                if (nextBoard[i][j] != board[i][j]) {
                     // this is the AI move
                     board = nextBoard;
                     found = true;
                     break;
                 }
             }
-            if(found)
+            if (found)
                 break;
         }
         return j;
@@ -362,7 +367,6 @@ public class Connect4Game {
 
 
 }
-
 
 
 //if (isValidColumn(colIndex)) {

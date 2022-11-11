@@ -5,6 +5,7 @@ import java.util.List;
 
 public class EvaluationState {
    // public static List<Integer> columns = new ArrayList<>();
+    //need to be removed
     public static boolean isTerminal(char[][] board) {
         for (int i = 0; i < board.length; i++)
             for (int j = 0; j < board[0].length; j++)
