@@ -1,4 +1,4 @@
-package com.example.connect_4_ai.MinimaxAlgorithms;
+package com.example.connect_4_ai.minimax_algorithms;
 
 public class MininmaxWithoutPruning {
 }

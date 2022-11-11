@@ -5,4 +5,6 @@ module com.example.connect_4_ai {
 
     opens com.example.connect_4_ai to javafx.fxml;
     exports com.example.connect_4_ai;
+    exports com.example.connect_4_ai.utilities;
+    opens com.example.connect_4_ai.utilities to javafx.fxml;
 }
