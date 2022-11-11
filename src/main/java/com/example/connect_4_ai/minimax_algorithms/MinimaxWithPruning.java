@@ -2,14 +2,15 @@ package com.example.connect_4_ai.minimax_algorithms;
 
 import com.example.connect_4_ai.NodeState;
 
-public class MinimaxWithPruning  {
+public class MinimaxWithPruning {
 
     public char[][] Decision(char[][] board) {
         long startTime = System.currentTimeMillis();
-        char[][] res = maximize(board, 0,Integer.MIN_VALUE,Integer.MAX_VALUE).getBoard();
+        char[][] res = maximize(board, 0, Integer.MIN_VALUE, Integer.MAX_VALUE).getBoard();
         System.out.println((System.currentTimeMillis() - startTime) + " ms");
         return res;
     }
+
     //r ->cpu
     public NodeState maximize(char[][] board, int level, int alpha, int beta) {
         if (level == 7 || EvaluationState.isTerminal(board)) {
