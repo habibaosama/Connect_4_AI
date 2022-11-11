@@ -3,7 +3,7 @@ package com.example.connect_4_ai.minimax_algorithms;
 import com.example.connect_4_ai.NodeState;
 
 
-public class MinimaxWithoutPruning {
+public class MinimaxWithoutPruning implements IMinimax{
 
     public char[][] Decision(char[][] board) {
         long startTime = System.currentTimeMillis();
