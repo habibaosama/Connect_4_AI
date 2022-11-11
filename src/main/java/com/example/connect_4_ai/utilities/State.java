@@ -24,10 +24,12 @@ public class State {
         return Util.isValid(board,lastRowBitPos,lastRowBitPos+2);
     }
 
-    public long applyChoice(int colIndex) {
+    public long applyChoice(int colIndex, boolean isOpponent) {
         int colBitPos = colIndex * 6;
         int lastRowBitPos = 42 + colIndex * 3;
         board = Util.subtractOne(board,lastRowBitPos,lastRowBitPos+2);
+        if(isOpponent)
+            return Util.clearBit(board, colBitPos + Util.getValue(board,lastRowBitPos,lastRowBitPos+2));
         return Util.setBit(board,colBitPos + Util.getValue(board,lastRowBitPos,lastRowBitPos+2));
     }
 
