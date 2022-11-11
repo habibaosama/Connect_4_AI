@@ -1,5 +1,6 @@
 package com.example.connect_4_ai;
 
+import com.example.connect_4_ai.minimax_algorithms.MinimaxWithoutPruning;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -170,9 +171,9 @@ public class Connect4Game {
 
 
             if (singlePlayer && !player1Turn) {
-//                colIndex = 0; // col index of computer turn
-//                play(colIndex);
-//                draw(context);
+               colIndex = playAI();
+                play(colIndex);
+                draw(context);
             }
         });
         context.drawImage(boardImage, 0, 0, 552, 552);
@@ -337,8 +338,32 @@ public class Connect4Game {
         }
         return true;
     }
+    //////////////////////////////
+
+    private int playAI(){
+        MinimaxWithoutPruning max = new MinimaxWithoutPruning();
+        //  MinimaxWithPruning max = new MinimaxWithPruning();
+        char[][] nextBoard = max.Decision(board);
+        boolean found = false;
+        int j=0;
+        for(int i=0; i<6; i++){
+            for(j=0; j<7; j++){
+                if(nextBoard[i][j] != board[i][j]){
+                    // this is the AI move
+                    board = nextBoard;
+                    found = true;
+                    break;
+                }
+            }
+            if(found)
+                break;
+        }
+        return j;
+    }
+
 
 }
+
 
 
 //if (isValidColumn(colIndex)) {
