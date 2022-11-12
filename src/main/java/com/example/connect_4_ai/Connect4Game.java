@@ -39,7 +39,7 @@ public class Connect4Game {
     private final Image redCircleImage;
     private final Image yellowCircleImage;
     private char[][] board;
-    private final int[] lastRowIndices;
+    public final int[] lastRowIndices;
 
     private boolean minimax = true;
     private int k =4;
@@ -348,7 +348,7 @@ public class Connect4Game {
     private int playAI() {
        MinimaxWithoutPruning max = new MinimaxWithoutPruning();
          // MinimaxWithPruning max = new MinimaxWithPruning();
-        long bitsBoard= Util.char2dArrayToLong(board,  lastRowIndices);
+        long bitsBoard= Util.char2dArrayToLong(board);
         char[][] nextBoard = max.Decision(bitsBoard,k);
         boolean found = false;
         int j = 0;

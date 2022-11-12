@@ -52,14 +52,27 @@ public class Util {
         return number;
     }
 
-    public static long char2dArrayToLong(char[][] boardChar, int[] lastRowIndices) {
+    public static long char2dArrayToLong(char[][] boardChar) {
         long board = 0;
+        int[] lastRowIndices=new int[7];
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
                 if (boardChar[i][j] == 'r')
                     board = setBit(board, (j * 6) + i);
-                else
+                else if(boardChar[i][j] == 'y')
                     board = clearBit(board,(j * 6) + i);
+                else {
+                    board = clearBit(board, (j * 6) + i);
+                }
+            }
+        }
+
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 6; j++) {
+                if (boardChar[j][i] != 'r' && boardChar[j][i] != 'y'){
+                    lastRowIndices[i]=5-j;
+                    break;
+                }
             }
         }
 

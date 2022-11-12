@@ -8,25 +8,27 @@ import java.util.List;
 public class EvaluationState {
    // public static List<Integer> columns = new ArrayList<>();
     //need to be removed
-    public static boolean isTerminal(char[][] board) {
-        for (int i = 0; i < board.length; i++)
-            for (int j = 0; j < board[0].length; j++)
-                if (board[i][j] == '\u0000')
+    public static boolean isTerminal(long board) {
+        char[][] boardState = Util.longToChar2dArray(board);
+        for (int i = 0; i < boardState.length; i++)
+            for (int j = 0; j < boardState[0].length; j++)
+                if (boardState[i][j] == '\u0000')
                     return false;
         return true;
     }
 
-    public static List<char[][]> getChildren(long bitsBoard, char player) {
+    public static List<Long> getChildren(long bitsBoard, char player) {
         char[][] board= Util.longToChar2dArray(bitsBoard);
         //columns = new ArrayList<>();
-        List<char[][]> children = new ArrayList<>();
+        List<Long> children = new ArrayList<>();
         for (int col = 0; col < board[0].length; col++) {
             for (int row = board.length - 1; row >= 0; row--) {
                 if (board[row][col] == '\u0000') {
                     char[][] child = copyBoard(board);
                     child[row][col] = player;
                    // columns.add(clm);
-                    children.add(child);
+                   // Util.char2dArrayToLong(child);
+                    children.add(Util.char2dArrayToLong(child));
                     break;
                 }
             }

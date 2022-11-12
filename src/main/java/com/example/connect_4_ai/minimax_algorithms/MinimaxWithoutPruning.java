@@ -28,11 +28,13 @@ public class MinimaxWithoutPruning implements IMinimax {
         }
 
         NodeState state = new NodeState(null, Integer.MIN_VALUE);
-        for (char[][] child : EvaluationState.getChildren(bitsBoard, 'r')) {
+        for (long child : EvaluationState.getChildren(bitsBoard, 'r')) {
             NodeState childState = minimize(child, level + 1);
             System.out.print("level " + level + " " + childState.score + " ");
-            if (childState.score > state.score)
-                state = new NodeState(child, childState.score);
+            if (childState.score > state.score) {
+                char[][] b = Util.longToChar2dArray(child);
+                state = new NodeState(b, childState.score);
+            }
 
 
         }
@@ -49,14 +51,16 @@ public class MinimaxWithoutPruning implements IMinimax {
         }
 
         NodeState state = new NodeState(null, Integer.MAX_VALUE);
-        for (char[][] child : EvaluationState.getChildren(bitsBoard, 'y')) {
-            long bit = Util.char2dArrayToLong(child);
-            NodeState childState = maximize(bit, level + 1);
+        for (long child : EvaluationState.getChildren(bitsBoard, 'y')) {
+           // long bit = Util.char2dArrayToLong(child);
+            NodeState childState = maximize(child, level + 1);
 
             System.out.print("level " + level + " " + childState.score + " ");
 
-            if (childState.score < state.score)
-                state = new NodeState(child, childState.score);
+            if (childState.score < state.score) {
+                char[][] b = Util.longToChar2dArray(child);
+                state = new NodeState(b, childState.score);
+            }
 
         }
         System.out.println();
