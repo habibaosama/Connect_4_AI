@@ -346,8 +346,8 @@ public class Connect4Game {
     //////////////////////////////
 
     private int playAI() {
-       MinimaxWithoutPruning max = new MinimaxWithoutPruning();
-         // MinimaxWithPruning max = new MinimaxWithPruning();
+      // MinimaxWithoutPruning max = new MinimaxWithoutPruning();
+        MinimaxWithPruning max = new MinimaxWithPruning();
         long bitsBoard= Util.char2dArrayToLong(board);
         char[][] nextBoard = max.Decision(bitsBoard,k);
         boolean found = false;

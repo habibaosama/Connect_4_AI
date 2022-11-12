@@ -1,5 +1,7 @@
 package com.example.connect_4_ai.utilities;
 
+import java.util.Arrays;
+
 public class Util {
 
     public static long setBit(long number, int index) {
@@ -61,21 +63,22 @@ public class Util {
                     board = setBit(board, (j * 6) + i);
                 else if(boardChar[i][j] == 'y')
                     board = clearBit(board,(j * 6) + i);
-                else {
-                    board = clearBit(board, (j * 6) + i);
-                }
             }
         }
 
+        Arrays.fill(lastRowIndices, 6);
         for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 6; j++) {
-                if (boardChar[j][i] != 'r' && boardChar[j][i] != 'y'){
-                    lastRowIndices[i]=5-j;
-                    break;
+            for (int j = 5; j >=0; j--) {
+                if (boardChar[j][i] == 'r' || boardChar[j][i] == 'y'){
+                    lastRowIndices[i]--;
                 }
             }
         }
 
+        for (int i=0;i<7;i++){
+            System.out.print(lastRowIndices[i]);
+        }
+        System.out.println("");
         int offset = 42;
         for (int i = 0; i < 7; i++) {
             board |= ((long) lastRowIndices[i] << (offset + 3 * i));
@@ -83,6 +86,7 @@ public class Util {
         return board;
     }
     public static char[][] longToChar2dArray(long board) {
+       // System.out.println(board);
         char[][] boardChar = new char[6][7];
         int offset = 42;
         for (int j = 0; j < 7; j++) {

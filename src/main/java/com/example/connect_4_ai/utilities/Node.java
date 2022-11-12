@@ -23,11 +23,14 @@ public class Node {
             }
         }
     }
-    public boolean isTerminal() {
+    public boolean isTerminal(long boardState) {
+        char[][] b = Util.longToChar2dArray(boardState);
         for (int i = 0; i <7; i++){
-            if(state.isValidColumn(i))
-                return false;
+            for (int j=5;j>=0;j--) {
+                if (b[j][i]=='\u0000')
+                    return true;
+            }
         }
-        return true;
+        return false;
     }
 }

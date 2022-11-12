@@ -20,17 +20,18 @@ public class MinimaxWithoutPruning implements IMinimax {
 
     //r ->cpu
     public NodeState maximize(Long bitsBoard, int level) {
-        Node node = new Node(new State(bitsBoard));
-        if (level == maxLevel || node.isTerminal()) {
+        System.out.println(maxLevel);
+        if (level == maxLevel || EvaluationState.isTerminal(bitsBoard)) {
             int eval = Evaluation.evaluateScore(bitsBoard);
             //int eval = Evaluation.eval(board);
+            System.out.println(maxLevel);
             return new NodeState(null, eval);
         }
 
         NodeState state = new NodeState(null, Integer.MIN_VALUE);
         for (long child : EvaluationState.getChildren(bitsBoard, 'r')) {
             NodeState childState = minimize(child, level + 1);
-            System.out.print("level " + level + " " + childState.score + " ");
+           // System.out.print("level " + level + " " + childState.score + " ");
             if (childState.score > state.score) {
                 char[][] b = Util.longToChar2dArray(child);
                 state = new NodeState(b, childState.score);
@@ -43,8 +44,7 @@ public class MinimaxWithoutPruning implements IMinimax {
     }
 
     public NodeState minimize(long bitsBoard, int level) {
-        Node node = new Node(new State(bitsBoard));
-        if (level == maxLevel || node.isTerminal()) {
+        if (level == maxLevel || EvaluationState.isTerminal(bitsBoard)) {
             // int eval = Evaluation.eval(board, 'y');
             int eval = Evaluation.evaluateScore(bitsBoard);
             return new NodeState(null, eval);
@@ -55,7 +55,7 @@ public class MinimaxWithoutPruning implements IMinimax {
            // long bit = Util.char2dArrayToLong(child);
             NodeState childState = maximize(child, level + 1);
 
-            System.out.print("level " + level + " " + childState.score + " ");
+           // System.out.print("level " + level + " " + childState.score + " ");
 
             if (childState.score < state.score) {
                 char[][] b = Util.longToChar2dArray(child);

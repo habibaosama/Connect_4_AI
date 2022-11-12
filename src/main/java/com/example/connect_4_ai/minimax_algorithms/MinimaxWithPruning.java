@@ -9,17 +9,18 @@ import java.util.Arrays;
 
 public class MinimaxWithPruning implements IMinimax{
 
-    public char[][] Decision(char[][] board) {
+    public int maxLevel;
+    public char[][] Decision(long bitsBoard, int maxLevel) {
         long startTime = System.currentTimeMillis();
-        long boardState = Util.char2dArrayToLong(board);
-        char[][] res = maximize(boardState, 0, Integer.MIN_VALUE, Integer.MAX_VALUE).getBoard();
+        this.maxLevel=maxLevel;
+        char[][] res = maximize(bitsBoard, 0, Integer.MIN_VALUE, Integer.MAX_VALUE).getBoard();
         System.out.println((System.currentTimeMillis() - startTime) + " ms");
         return res;
     }
 
     //r ->cpu
     public NodeState maximize(long board, int level, int alpha, int beta) {
-        if (level == 7 || EvaluationState.isTerminal(board)) {
+        if (level == maxLevel|| EvaluationState.isTerminal(board)) {
            // int eval = Evaluation.eval(board, 'r');
             int eval = Evaluation.evaluateScore(board);
             return new NodeState(null, eval);
@@ -48,7 +49,7 @@ public class MinimaxWithPruning implements IMinimax{
 
     public NodeState minimize(long board, int level, int alpha, int beta) {
 
-        if (level == 7 || EvaluationState.isTerminal(board)) {
+        if (level == maxLevel || EvaluationState.isTerminal(board)) {
            // int eval = Evaluation.eval(board, 'y');
             int eval = Evaluation.evaluateScore(board);
             return new NodeState(null, eval);
