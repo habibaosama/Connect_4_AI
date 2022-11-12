@@ -2,6 +2,7 @@ package com.example.connect_4_ai;
 
 import com.example.connect_4_ai.minimax_algorithms.MinimaxWithPruning;
 import com.example.connect_4_ai.minimax_algorithms.MinimaxWithoutPruning;
+import com.example.connect_4_ai.utilities.Util;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -38,10 +39,10 @@ public class Connect4Game {
     private final Image redCircleImage;
     private final Image yellowCircleImage;
     private char[][] board;
-    private final int[] lastRowIndices;
+    public final int[] lastRowIndices;
 
     private boolean minimax = true;
-    private int k = 4;
+    private int k =4;
 
     public Connect4Game(boolean singlePlayer) throws FileNotFoundException {
         this.singlePlayer = singlePlayer;
@@ -345,9 +346,10 @@ public class Connect4Game {
     //////////////////////////////
 
     private int playAI() {
-       MinimaxWithoutPruning max = new MinimaxWithoutPruning();
-          //MinimaxWithPruning max = new MinimaxWithPruning();
-        char[][] nextBoard = max.Decision(board);
+      // MinimaxWithoutPruning max = new MinimaxWithoutPruning();
+        MinimaxWithPruning max = new MinimaxWithPruning();
+        long bitsBoard= Util.char2dArrayToLong(board);
+        char[][] nextBoard = max.Decision(bitsBoard,k);
         boolean found = false;
         int j = 0;
         for (int i = 0; i < 6; i++) {

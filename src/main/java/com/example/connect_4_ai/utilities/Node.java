@@ -7,8 +7,8 @@ public class Node {
     private List<Node> children;
     public int depth;
 
-    public Node(Node parent, State state) {
-        this.parent = parent;
+    public Node( State state) {
+        //this.parent = parent;
         this.state = state;
         children = new ArrayList<>();
         this.depth = 0;
@@ -17,18 +17,20 @@ public class Node {
     public void expand(){
         for(int col = 0; col <= 7; col++){
             if(state.isValidColumn(col)){
-                Node child = new Node(this,new State(Util.alternateBit(state.applyChoice(col,Util.getBit(state.board,63) == 0),63)
-                ));
+                Node child = new Node(new State(Util.alternateBit(state.applyChoice(col,Util.getBit(state.board,63) == 0),63)));
                 children.add(child);
                 child.depth = depth+1;
             }
         }
     }
-    public  boolean isTerminal() {
+    public boolean isTerminal(long boardState) {
+        char[][] b = Util.longToChar2dArray(boardState);
         for (int i = 0; i <7; i++){
-            if(state.isValidColumn(i))
-                return false;
+            for (int j=5;j>=0;j--) {
+                if (b[j][i]=='\u0000')
+                    return true;
+            }
         }
-        return true;
+        return false;
     }
 }
