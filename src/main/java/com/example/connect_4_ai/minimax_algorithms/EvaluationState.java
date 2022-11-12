@@ -1,5 +1,7 @@
 package com.example.connect_4_ai.minimax_algorithms;
 
+import com.example.connect_4_ai.utilities.Util;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,8 @@ public class EvaluationState {
         return true;
     }
 
-    public static List<char[][]> getChildren(char[][] board, char player) {
+    public static List<char[][]> getChildren(long bitsBoard, char player) {
+        char[][] board= Util.longToChar2dArray(bitsBoard);
         //columns = new ArrayList<>();
         List<char[][]> children = new ArrayList<>();
         for (int col = 0; col < board[0].length; col++) {
