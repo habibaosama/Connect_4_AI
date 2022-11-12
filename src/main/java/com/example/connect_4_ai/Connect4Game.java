@@ -1,5 +1,6 @@
 package com.example.connect_4_ai;
 
+import com.example.connect_4_ai.minimax_algorithms.IMinimax;
 import com.example.connect_4_ai.minimax_algorithms.MinimaxWithPruning;
 import com.example.connect_4_ai.minimax_algorithms.MinimaxWithoutPruning;
 import com.example.connect_4_ai.utilities.Util;
@@ -170,6 +171,7 @@ public class Connect4Game {
             System.out.println("Index of column : " + colIndex);
             play(colIndex);
             draw(context);
+
             if (isFull()) {
 
             }
@@ -346,9 +348,14 @@ public class Connect4Game {
     //////////////////////////////
 
     private int playAI() {
-      // MinimaxWithoutPruning max = new MinimaxWithoutPruning();
-        MinimaxWithPruning max = new MinimaxWithPruning();
-        long bitsBoard= Util.char2dArrayToLong(board);
+        IMinimax max;
+        if (minimax)
+            max = new MinimaxWithoutPruning();
+        else
+            max = new MinimaxWithPruning();
+
+        long bitsBoard = Util.char2dArrayToLong(board);
+        bitsBoard = Util.setBit(bitsBoard, 63);
         char[][] nextBoard = max.Decision(bitsBoard,k);
         boolean found = false;
         int j = 0;
