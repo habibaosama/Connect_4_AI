@@ -1,7 +1,118 @@
 package com.example.connect_4_ai.minimax_algorithms;
 
 public class Evaluation {
-    public static int eval(char[][] board, char player) {
+    public static int ROWS =6;
+    public static int COLUMNS =7;
+    public static int evaluateScore(char[][] board){
+        int score = 0;
+        //Horizontal groups check
+        for(int i = 0; i < ROWS; i++ )
+            for(int j = 0; j < COLUMNS -3 ; j++)
+                score += HorizontalWindow(board, i, j);
+
+        //Vertical groups check
+        for(int j = 0; j < COLUMNS; j++)
+            for(int i = 0; i < ROWS -3 ; i++ )
+                score += verticalWindow(board, i, j);
+
+        for(int i = 0; i < ROWS - 3 ; i++ )
+            for(int j = 0; j < COLUMNS - 3 ; j++ ){
+                score += positiveDiagonalWindow(board, i, j);
+                score += negativeDiagonalWindow(board, i, COLUMNS - j - 1);
+            }
+
+        //count pieces in middle of the board so chance to win is more
+        for(int i = 0; i < ROWS; i++){
+            if( board[i][COLUMNS /2] == 'r' )
+                score+= 1;
+        }
+
+        return score;
+    }
+    private static int HorizontalWindow(char[][] board, int startRow, int startColumn){
+        int cpuPieces = 0,oppPieces = 0, empty = 0;
+
+        for(int i=startColumn; i<startColumn+4; i++){
+            if(board[startRow][i]=='r'){
+                cpuPieces++;
+            }else if(board[startRow][i]=='y'){
+                oppPieces++;
+            }else{
+                empty++;
+            }
+        }
+        return calculatePointsWeight(cpuPieces,oppPieces,empty);
+    }
+
+
+    private static int verticalWindow(char[][] board, int startRow, int startColumn){
+        int cpuPieces = 0,oppPieces = 0, empty = 0;
+        for(int i = startRow; i < startRow + 4; i++){
+            if(board[i][startColumn] == 'r')
+                cpuPieces++;
+            else if(board[i][startColumn] == 'y')
+                oppPieces++;
+            else
+                empty++;
+        }
+        return calculatePointsWeight(cpuPieces, oppPieces, empty);
+    }
+
+    private static int positiveDiagonalWindow(char[][] board, int startRow, int startColumn ){
+        int CPUPieces = 0,oppPieces = 0, empty = 0;
+
+        for(int i = startRow; i < startRow + 4; i++){
+            if(board[i][startColumn] == 'r')
+                CPUPieces++;
+            else if(board[i][startColumn] == 'y')
+                oppPieces++;
+            else
+                empty++;
+            //increment column here
+            startColumn++;
+        }
+        return calculatePointsWeight(CPUPieces, oppPieces,empty);
+    }
+
+    private static int negativeDiagonalWindow(char[][] board, int startRow, int startColumn){
+        int cpuPieces = 0,oppPieces = 0, empty = 0;
+
+        for(int i = startRow; i < startRow + 4; i++){
+            if(board[i][startColumn] =='r')
+                cpuPieces++;
+            else if(board[i][startColumn] == 'y')
+                oppPieces++;
+            else
+                empty++;
+            //decrement col
+            startColumn --;
+        }
+        return calculatePointsWeight(cpuPieces, oppPieces, empty);
+    }
+    private static int calculatePointsWeight(int cpuPieces, int oppPieces, int empty) {
+        if(cpuPieces==4){
+            return 100;
+        }else if(cpuPieces==3 && empty==1){
+            return 20;
+        }else if(cpuPieces==2 && empty==2){
+            return 6;
+        }
+        if(oppPieces==4){
+            return -150;
+        }else if(oppPieces==3 && empty==1){
+            return -60;
+        }else if(oppPieces==2 && empty==2){
+            return -6;
+        }
+        return 0;
+    }
+
+
+
+
+    // calculating score of player
+    ///////////////////////////////////
+   /* public static int eval(char[][] board, char player) {
         int score = 0;
         for (int col = 0; col < 7; col++) {
             int row = 0;
@@ -46,26 +157,8 @@ public class Evaluation {
             i += dx;
             j += dy;
         }
-       /* System.out.println("player "+ playerPoints);
-        System.out.println("op "+ opPoints);
-        System.out.println("empty "+ empty);*/
-        /*if (playerPoints == 4)
-            points += 100;
-        else if (playerPoints == 3 && empty == 1)
-            points += 5;
-        else if (playerPoints == 2 && empty == 2)
-            points += 2;
 
-        if (opPoints == 3 && empty == 1)
-            points -= 100;
-
-        if (opPoints == 2 && empty == 2)
-            points -= 2;
-
-        if(opPoints== 4 )
-            points-=200;
-
-        return points;*/
+        return points;
         return calculatePoints(opPoints, playerPoints,empty);
     }
 
@@ -83,14 +176,14 @@ public class Evaluation {
             return 6;
         }
         if(opPoints==4){
-            return -1*150;
+            return -150;
         }else if(opPoints==3 && empty==1){
             return -60;
        }else if(opPoints==2 && empty==2){
-            return -1*6;
+            return -6;
         }
         return 0;
     }
-
+*/
 
 }
