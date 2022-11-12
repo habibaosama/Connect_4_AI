@@ -15,8 +15,8 @@ public class MinimaxWithPruning implements IMinimax{
     //r ->cpu
     public NodeState maximize(char[][] board, int level, int alpha, int beta) {
         if (level == 7 || EvaluationState.isTerminal(board)) {
-            int eval = Evaluation.eval(board, 'r');
-            //int eval = Evaluation.eval(board);
+           // int eval = Evaluation.eval(board, 'r');
+            int eval = Evaluation.evaluateScore(board);
             return new NodeState(null, eval);
         }
 
@@ -31,7 +31,10 @@ public class MinimaxWithPruning implements IMinimax{
             if (state.score > alpha)
                 alpha = state.score;
 
+            System.out.println("level "+ level + " "+state.score+" ");
+
         }
+        System.out.println();
         return state;
 
     }
@@ -39,8 +42,8 @@ public class MinimaxWithPruning implements IMinimax{
     public NodeState minimize(char[][] board, int level, int alpha, int beta) {
 
         if (level == 7 || EvaluationState.isTerminal(board)) {
-            int eval = Evaluation.eval(board, 'y');
-            //int eval = Evaluation.eval(board);
+           // int eval = Evaluation.eval(board, 'y');
+            int eval = Evaluation.evaluateScore(board);
             return new NodeState(null, eval);
         }
 
@@ -54,7 +57,9 @@ public class MinimaxWithPruning implements IMinimax{
             if (state.score < beta)
                 beta = state.score;
 
+
         }
+
         return state;
 
     }

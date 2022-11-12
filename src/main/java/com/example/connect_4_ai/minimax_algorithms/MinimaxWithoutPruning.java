@@ -16,8 +16,8 @@ public class MinimaxWithoutPruning implements IMinimax{
     //r ->cpu
     public NodeState maximize(char[][] board, int level) {
 
-        if (level == 6 || EvaluationState.isTerminal(board)) {
-            int eval = Evaluation.eval(board, 'r');
+        if (level == 4 || EvaluationState.isTerminal(board)) {
+            int eval = Evaluation.evaluateScore(board);
             //int eval = Evaluation.eval(board);
             return new NodeState(null, eval);
         }
@@ -25,9 +25,10 @@ public class MinimaxWithoutPruning implements IMinimax{
         NodeState state = new NodeState(null, Integer.MIN_VALUE);
         for (char[][] child : EvaluationState.getChildren(board, 'r')) {
             NodeState childState = minimize(child, level + 1);
-
+            System.out.print("level "+ level +" "+ childState.score+" ");
             if (childState.score > state.score)
                 state = new NodeState(child, childState.score);
+
 
         }
         return state;
@@ -36,19 +37,23 @@ public class MinimaxWithoutPruning implements IMinimax{
 
     public NodeState minimize(char[][] board, int level) {
 
-        if (level == 6 || EvaluationState.isTerminal(board)) {
-            int eval = Evaluation.eval(board, 'y');
-            // int eval = Evaluation.eval(board);
+        if (level == 4 || EvaluationState.isTerminal(board)) {
+           // int eval = Evaluation.eval(board, 'y');
+             int eval = Evaluation.evaluateScore(board);
             return new NodeState(null, eval);
         }
 
         NodeState state = new NodeState(null, Integer.MAX_VALUE);
         for (char[][] child : EvaluationState.getChildren(board, 'y')) {
             NodeState childState = maximize(child, level + 1);
+
+            System.out.print("level "+ level +" "+ childState.score+" ");
+
             if (childState.score < state.score)
                 state = new NodeState(child, childState.score);
 
         }
+        System.out.println();
         return state;
 
     }
