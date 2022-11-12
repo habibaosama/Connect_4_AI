@@ -23,11 +23,11 @@ public class MinimaxWithoutPruning implements IMinimax{
         }
 
         NodeState state = new NodeState(null, Integer.MIN_VALUE);
-        for (char[][] child : EvaluationState.getChildren(board, 'r')) {
-            NodeState childState = minimize(child, level + 1);
+        for (NodeState child : EvaluationState.getChildren(board, 'r')) {
+            NodeState childState = minimize(child.board, level + 1);
 
             if (childState.score > state.score)
-                state = new NodeState(child, childState.score);
+                state = new NodeState(child.board, childState.score);
 
         }
         return state;
@@ -43,10 +43,10 @@ public class MinimaxWithoutPruning implements IMinimax{
         }
 
         NodeState state = new NodeState(null, Integer.MAX_VALUE);
-        for (char[][] child : EvaluationState.getChildren(board, 'y')) {
-            NodeState childState = maximize(child, level + 1);
+        for (NodeState child : EvaluationState.getChildren(board, 'y')) {
+            NodeState childState = maximize(child.board, level + 1);
             if (childState.score < state.score)
-                state = new NodeState(child, childState.score);
+                state = new NodeState(child.board, childState.score);
 
         }
         return state;

@@ -1,5 +1,7 @@
 package com.example.connect_4_ai.minimax_algorithms;
 
+import com.example.connect_4_ai.NodeState;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,16 +16,18 @@ public class EvaluationState {
         return true;
     }
 
-    public static List<char[][]> getChildren(char[][] board, char player) {
+    public static List<NodeState> getChildren(char[][] board, char player) {
         //columns = new ArrayList<>();
-        List<char[][]> children = new ArrayList<>();
+        List<NodeState> children = new ArrayList<>();
         for (int col = 0; col < board[0].length; col++) {
             for (int row = board.length - 1; row >= 0; row--) {
                 if (board[row][col] == '\u0000') {
                     char[][] child = copyBoard(board);
                     child[row][col] = player;
+                    NodeState state =new NodeState(board,0);
+                    state.row=col;
                    // columns.add(clm);
-                    children.add(child);
+                    children.add(state);
                     break;
                 }
             }

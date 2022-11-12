@@ -1,11 +1,15 @@
 package com.example.connect_4_ai;
 
+import com.example.connect_4_ai.ShowTree.ShowTreeController;
 import com.example.connect_4_ai.minimax_algorithms.MinimaxWithPruning;
 import com.example.connect_4_ai.minimax_algorithms.MinimaxWithoutPruning;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -38,6 +42,7 @@ public class Connect4Game {
     private final Image redCircleImage;
     private final Image yellowCircleImage;
     private char[][] board;
+    private NodeState boardState;
     private final int[] lastRowIndices;
 
     private boolean minimax = true;
@@ -91,6 +96,7 @@ public class Connect4Game {
         back.setLayoutY(340);
 
 
+
         start.setOnAction(e -> {
             try {
                 k = Integer.parseInt(textField.getText());
@@ -108,6 +114,7 @@ public class Connect4Game {
                 throw new RuntimeException(ex);
             }
         });
+
         ImageView imageView = new ImageView("file:src/main/resources/images/connect-4-1.jpg");
         group.getChildren().addAll(imageView, comboBox, textField, start, back);
         group.setStyle("-fx-font: 15px \"Impact\";");
@@ -147,13 +154,13 @@ public class Connect4Game {
         backButton.setFont(Font.font("Impact", FontWeight.BOLD, 20));
         backButton.setLayoutX(87);
         backButton.setLayoutY(552);
-        backButton.setOnAction(e -> {
-            try {
-                new HelloApplication().start(stage);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
+//        Button treeButton = new Button("Back");
+//        treeButton.setFont(Font.font("Impact", FontWeight.BOLD, 20));
+//        treeButton.setLayoutX(180);
+//        treeButton.setLayoutY(552);
+//        treeButton.setOnAction(e -> {
+//            showTree();
+//        });
 
         Canvas canvas = new Canvas(552, 552);
         GraphicsContext context = canvas.getGraphicsContext2D();
@@ -345,8 +352,8 @@ public class Connect4Game {
     //////////////////////////////
 
     private int playAI() {
-       MinimaxWithoutPruning max = new MinimaxWithoutPruning();
-          //MinimaxWithPruning max = new MinimaxWithPruning();
+      // MinimaxWithoutPruning max = new MinimaxWithoutPruning();
+          MinimaxWithPruning max = new MinimaxWithPruning();
         char[][] nextBoard = max.Decision(board);
         boolean found = false;
         int j = 0;
@@ -364,7 +371,23 @@ public class Connect4Game {
         }
         return j;
     }
-
+//    public void showTree() {
+//        Parent root;
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowTree/showTree.fxml"));
+//            root = loader.load();
+//            ShowTreeController c = loader.getController();
+//            Scene scene = new Scene(root);
+//            Stage stage = new Stage();
+//            stage.setTitle("Tree");
+//            c.setTreeRoot(boardState);
+//            stage.setScene(scene);
+//            stage.setResizable(false);
+//            stage.show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }
 
