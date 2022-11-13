@@ -27,6 +27,7 @@ public class Node {
                 children.add(child);
             }
         }
+        System.out.println("ll "+children.size());
         return children;
     }
 

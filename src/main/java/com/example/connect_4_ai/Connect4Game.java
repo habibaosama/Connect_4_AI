@@ -214,8 +214,8 @@ public class Connect4Game {
     public void showTree() {
         Stage stage = new Stage();
         ScrollPane pane = new ScrollPane();
-        int h = 800;
-        int w = 1500;
+        int h = 700;
+        int w = 1000;
         Group root = new Group();
         ShowTreeController c = new ShowTreeController();
         root = c.showTree(node,root);
