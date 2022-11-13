@@ -30,7 +30,7 @@ public class Connect4Game {
     private Label score1Label, score2Label;
     private Label playerTurnLabel;
     private boolean player1Turn = true;
-    private boolean singlePlayer;
+    private final boolean singlePlayer;
     private final Alert alert;
     private ImageView winIcon;
     private ImageView loseIcon;
@@ -233,13 +233,11 @@ public class Connect4Game {
     private void play(int col) {
         if (isValidColumn(col)) {
             applyChoice(col);
-            if (win(col)) {
-                System.out.println("Win Situation");
-                score1 += player1Turn ? 1 : 0;
-                score2 += !player1Turn ? 1 : 0;
-                score1Label.setText("Score " + score1);
-                score2Label.setText("Score " + score2);
-            }
+            System.out.println("Win Situation");
+            score1 += player1Turn ? getScore(col) : 0;
+            score2 += !player1Turn ? getScore(col) : 0;
+            score1Label.setText("Score " + score1);
+            score2Label.setText("Score " + score2);
             switchTurns();
         }
     }
@@ -268,10 +266,11 @@ public class Connect4Game {
             return 'r';
     }
 
-    private boolean win(int col) {
+    private int getScore(int col) {
         int row = lastRowIndices[col];
         char color = getChar();
         int count = 0;
+        int score = 0;
         // vertical check
 
         for (int i = row + 1; i < row + 4 && i < 6; i++) {
@@ -282,7 +281,7 @@ public class Connect4Game {
 //
 //
         if (count == 3)
-            return true;
+            score++;
 //
         count = 0;
         // horizontal check
@@ -298,7 +297,7 @@ public class Connect4Game {
             count++;
         }
         if (count >= 3)
-            return true;
+            score += count - 2;
 //
         // right diagonal check
         count = 0;
@@ -316,7 +315,7 @@ public class Connect4Game {
         }
 
         if (count >= 3)
-            return true;
+            score += count - 2;
 
         // left diagonal check
         count = 0;
@@ -333,7 +332,9 @@ public class Connect4Game {
             count++;
         }
 
-        return count >= 3;
+        if (count >= 3)
+            score += count - 2;
+        return score;
     }
 
     private boolean isFull() {
