@@ -36,4 +36,17 @@ public class Node {
         return true;
     }
 
+    public int getChosenCol() {
+          if (chosenNode == null)
+              return -1;
+          int offset = 42;
+          for (int i = 0; i < 7; i++) {
+              if (Util.getValue(chosenNode.state.board, offset, offset + 2) !=
+                      Util.getValue(this.state.board, offset, offset + 2))
+                        return i;
+              offset += 3;
+          }
+          return -1;
+    }
+
 }

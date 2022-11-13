@@ -1,12 +1,11 @@
 package com.example.connect_4_ai;
 
-import com.example.connect_4_ai.minimax_algorithms.IMinimax;
+import com.example.connect_4_ai.minimax_algorithms.MiniMax;
 import com.example.connect_4_ai.minimax_algorithms.MinimaxWithPruning;
 import com.example.connect_4_ai.minimax_algorithms.MinimaxWithoutPruning;
 import com.example.connect_4_ai.utilities.Util;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -15,9 +14,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
+import javafx.scene.text.*;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
@@ -43,7 +41,7 @@ public class Connect4Game {
     public final int[] lastRowIndices;
 
     private boolean minimax = true;
-    private int k =4;
+    private int k = 4;
 
     public Connect4Game(boolean singlePlayer) throws FileNotFoundException {
         this.singlePlayer = singlePlayer;
@@ -348,7 +346,7 @@ public class Connect4Game {
     //////////////////////////////
 
     private int playAI() {
-        IMinimax max;
+        MiniMax max;
         if (minimax)
             max = new MinimaxWithoutPruning();
         else
@@ -356,25 +354,8 @@ public class Connect4Game {
 
         long bitsBoard = Util.char2dArrayToLong(board);
         bitsBoard = Util.setBit(bitsBoard, 63);
-        char[][] nextBoard = max.Decision(bitsBoard,k);
-        boolean found = false;
-        int j = 0;
-        for (int i = 0; i < 6; i++) {
-            for (j = 0; j < 7; j++) {
-                if (nextBoard[i][j] != board[i][j]) {
-                    // this is the AI move
-                    board = nextBoard;
-                    found = true;
-                    break;
-                }
-            }
-            if (found)
-                break;
-        }
-        return j;
+        return max.Decision(bitsBoard,k);
     }
-
-
 }
 
 

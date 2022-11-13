@@ -1,26 +1,12 @@
 package com.example.connect_4_ai.minimax_algorithms;
-
 import com.example.connect_4_ai.utilities.Node;
-import com.example.connect_4_ai.utilities.State;
 import com.example.connect_4_ai.utilities.Util;
 
 
-public class MinimaxWithoutPruning implements IMinimax {
-    public int maxLevel;
-    public Node root;
-
-    public char[][] Decision(long bitsBoard, int maxLevel) {
-        this.maxLevel = maxLevel;
-        long startTime = System.currentTimeMillis();
-        root = new Node(new State(bitsBoard));
-        System.out.println((System.currentTimeMillis() - startTime) + " ms");
-        return Util.longToChar2dArray(maximize(root,0).chosenNode.state.board);
-    }
-
-
+public class MinimaxWithoutPruning extends MiniMax {
     //r ->cpu
+    @Override
     public Node maximize(Node node, int level) {
-        System.out.println(maxLevel);
         char[][] board = Util.longToChar2dArray(node.state.board);
         if (level == maxLevel || node.isTerminal()) {
             node.score = Evaluation.evaluateScore(node.state.board);

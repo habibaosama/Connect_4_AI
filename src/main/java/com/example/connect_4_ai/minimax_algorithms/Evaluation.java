@@ -3,8 +3,8 @@ package com.example.connect_4_ai.minimax_algorithms;
 import com.example.connect_4_ai.utilities.Util;
 
 public class Evaluation {
-    public static int ROWS =6;
-    public static int COLUMNS =7;
+    public static int ROWS = 6;
+    public static int COLUMNS = 7;
     public static int evaluateScore(long bitsBoard){
         // convert the long to char array
        char[][] board=Util.longToChar2dArray(bitsBoard);
