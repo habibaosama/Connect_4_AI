@@ -1,12 +1,16 @@
 package com.example.connect_4_ai;
 
+import com.example.connect_4_ai.Tree.ShowTreeController;
 import com.example.connect_4_ai.minimax_algorithms.MiniMax;
 import com.example.connect_4_ai.minimax_algorithms.MinimaxWithPruning;
 import com.example.connect_4_ai.minimax_algorithms.MinimaxWithoutPruning;
+import com.example.connect_4_ai.utilities.Node;
 import com.example.connect_4_ai.utilities.Util;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -40,6 +44,7 @@ public class Connect4Game {
     private char[][] board;
     public final int[] lastRowIndices;
 
+    public Node node;
     private boolean minimax = true;
     private int k = 4;
 
@@ -155,6 +160,14 @@ public class Connect4Game {
             }
         });
 
+        Button treeButton = new Button("Tree");
+        treeButton.setFont(Font.font("Impact", FontWeight.BOLD, 20));
+        treeButton.setLayoutX(180);
+        treeButton.setLayoutY(552);
+        treeButton.setOnAction(e -> {
+           showTree();
+        });
+
         Canvas canvas = new Canvas(552, 552);
         GraphicsContext context = canvas.getGraphicsContext2D();
 
@@ -182,10 +195,28 @@ public class Connect4Game {
         });
         context.drawImage(boardImage, 0, 0, 552, 552);
         Group root = new Group();
-        root.getChildren().addAll(canvas, playerTurnLabel, score1Label, score2Label, restartButton, backButton);
+        root.getChildren().addAll(canvas, playerTurnLabel, score1Label, score2Label, restartButton, backButton,treeButton);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
+    }
+
+    public void showTree() {
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("show-tree.fxml"));
+            root = loader.load();
+            ShowTreeController c = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Tree");
+            c.showTree(node);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void draw(GraphicsContext context) {
@@ -354,7 +385,10 @@ public class Connect4Game {
 
         long bitsBoard = Util.char2dArrayToLong(board);
         bitsBoard = Util.setBit(bitsBoard, 63);
-        return max.Decision(bitsBoard,k);
+        int col = max.Decision(bitsBoard,k);
+        node = max.root;
+        node.col=col;
+        return col;
     }
 }
 

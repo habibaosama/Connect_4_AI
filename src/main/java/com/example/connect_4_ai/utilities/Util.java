@@ -72,10 +72,6 @@ public class Util {
             }
         }
 
-        for (int i=0;i<7;i++){
-            System.out.print(lastRowIndices[i]);
-        }
-        System.out.println("");
         int offset = 42;
         for (int i = 0; i < 7; i++) {
             board |= ((long) lastRowIndices[i] << (offset + 3 * i));
