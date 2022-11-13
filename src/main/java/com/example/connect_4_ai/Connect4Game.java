@@ -170,15 +170,33 @@ public class Connect4Game {
             play(colIndex);
             draw(context);
 
-            if (isFull()) {
-
-            }
-
             if (singlePlayer && !player1Turn) {
                 colIndex = playAI();
                 play(colIndex);
                 draw(context);
             }
+            if (isFull()) {
+                draw(canvas.getGraphicsContext2D());
+                if (score2 > score1){
+                    alert.setGraphic(loseIcon);
+                    alert.setTitle("You lost");
+                    alert.setHeaderText("You're never a loser until you quit trying.:(");
+                    alert.show();
+
+                }else if(score2 < score1){
+                    alert.setGraphic(winIcon);
+                    alert.setTitle("WIN");
+                    alert.setHeaderText("Congratulations :)");
+                    alert.show();
+                }else{
+                    alert.setGraphic(winIcon);
+                    alert.setTitle("Tie");
+                    alert.setHeaderText(":(");
+                    alert.show();
+
+                }
+            }
+
         });
         context.drawImage(boardImage, 0, 0, 552, 552);
         Group root = new Group();
