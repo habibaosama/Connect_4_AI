@@ -22,7 +22,7 @@ public class MinimaxWithoutPruning extends MiniMax {
         for (Node child : node.expand()) {
             expandedNodes++;
             child = minimize(child, level + 1);
-            System.out.print("level " + level + " " + child.score + " ");
+           // System.out.print("level " + level + " " + child.score + " ");
             if (child.score > node.score) {
                 node.score = child.score;
                 node.chosenNode = child;

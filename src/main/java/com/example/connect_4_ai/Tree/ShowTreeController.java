@@ -22,6 +22,7 @@ public class ShowTreeController implements Initializable {
     private HashMap<Integer, Shape> shapes;
     private double width = 100;
     private double middleCanvas;
+    public int levels=0;
     private int TotalIDs = 0;
 
 
@@ -40,7 +41,9 @@ public class ShowTreeController implements Initializable {
         ShapeAbstract shape = new TrapezoidUp(0, evalState.score);
         shape.setCoordinates(middleCanvas, 0);
         shape.setChosenCol(evalState.col);
-        System.out.println(evalState.col);
+        //System.out.println(evalState.col);
+        System.out.println("level "+levels+" score "+evalState.score);
+        levels++;
         shapes.put(TotalIDs, shape);
         parent.add(evalState);
         pID.add(TotalIDs);
@@ -69,13 +72,18 @@ public class ShowTreeController implements Initializable {
                         shape = new TrapezoidUp(parentId, child.score);
                         shape.setChosenCol(child.getChosenCol());
                     }
+                    System.out.print("level "+levels+" score "+child.score+" || ");
                     cID.add(TotalIDs);
                     shapes.put(TotalIDs, shape);
                 }
+                System.out.print("              ");
+
 
             }
 
             constructShapes(children, cID);//set coordinates
+            levels++;
+            System.out.println("");
             parent = children;
             pID = cID;
             children = new LinkedList<>();

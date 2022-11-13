@@ -8,7 +8,7 @@
    <children>
       <ScrollPane prefHeight="800.0" prefWidth="1500.0">
          <content>
-            <Canvas fx:id="canvas" height="3000.0" width="6000.0" />
+            <Canvas fx:id="canvas" height="3000.0" width="16384.0" />
          </content>
       </ScrollPane>
    </children>
