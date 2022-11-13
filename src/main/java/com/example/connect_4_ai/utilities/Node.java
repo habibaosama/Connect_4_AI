@@ -18,7 +18,8 @@ public class Node {
         for(int col = 0; col < 7; col++) {
             if(state.isValidColumn(col)) {
                 boolean isOpponent = Util.getBit(state.board,63) == 0;
-                Node child = new Node(new State(Util.alternateBit(state.applyChoice(col, isOpponent),63)));
+                State childState = new State(state.board);
+                Node child = new Node(new State(Util.alternateBit(childState.applyChoice(col, isOpponent),63)));
                 child.parent = this;
                 children.add(child);
             }

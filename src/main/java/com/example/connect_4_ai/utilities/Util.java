@@ -25,11 +25,7 @@ public class Util {
     }
 
     public static boolean isValid(long number, int from, int to){
-      for(int i = from; i <= to; i++){
-          if(getBit(number,i) == 1)
-             return false;
-      }
-        return true;
+        return getValue(number,from,to) != 0;
     }
 
     public static int getValue(long number, int from, int to){
@@ -41,6 +37,7 @@ public class Util {
         }
         return value;
     }
+
     public static long subtractOne(long number, int from, int to){
         int rightMostOne = from;
         while (from <= to && getBit(number,rightMostOne) != 1)
@@ -85,6 +82,7 @@ public class Util {
         }
         return board;
     }
+
     public static char[][] longToChar2dArray(long board) {
        // System.out.println(board);
         char[][] boardChar = new char[6][7];
@@ -102,30 +100,4 @@ public class Util {
         return boardChar;
     }
 
-//    public static void main(String[] args) {
-//        char[][] charArr = new char[][]{
-//                {'0', '0', '0', '0', '0', '0', '0'},
-//                {'0', '0', '0', '0', '0', '0', '0'},
-//                {'0', '0', '0', '0', '0', '0', '0'},
-//                {'0', '0', 'y', '0', '0', '0', '0'},
-//                {'0', 'r', 'r', '0', '0', '0', '0'},
-//                {'r', 'y', 'y', 'r', 'y', '0', 'r'}
-//            };
-//        int[] lastRowIndices = new int[] {5, 4, 3, 5, 5, 6, 5};
-//        long board = char2dArrayToLong(charArr, lastRowIndices);
-//        String s = Long.toBinaryString(board);
-//
-//        for (char c : s.toCharArray()) {
-//            System.out.print(c + "  ");
-//        }
-//
-//        charArr = longToChar2dArray(board);
-//        for (int i = 0; i < 6; i++) {
-//            for (int j = 0; j < 7; j++) {
-//                System.out.print(charArr[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-//
-//    }
 }

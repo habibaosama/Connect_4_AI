@@ -24,7 +24,7 @@ public class MinimaxWithoutPruning implements IMinimax {
         char[][] board = Util.longToChar2dArray(node.state.board);
         if (level == maxLevel || node.isTerminal()) {
             node.score = Evaluation.evaluateScore(node.state.board);
-            System.out.println(maxLevel);
+//            System.out.println(maxLevel);
             return node;
         }
 
