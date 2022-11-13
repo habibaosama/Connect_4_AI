@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c9d4ca8b-e3db-4676-b7c3-abe539b45fb9" name="Changes" comment="Removing Warnings :wastebasket:" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="2HQ8eaOUvIZUM0O2HpElb16DM4B" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/home/mai/Desktop/Lab2/Connect_4_AI/src/main/resources/com/example/connect_4_ai",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2689394",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.runner"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/com/example/connect_4_ai" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/example/connect_4_ai" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.connect_4_ai.HelloApplication" />
+      <module name="Connect_4_AI" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.connect_4_ai.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.HelloApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c9d4ca8b-e3db-4676-b7c3-abe539b45fb9" name="Changes" comment="" />
+      <created>1668206059055</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1668206059055</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Tree">
+      <created>1668221366947</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1668221366947</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Tree">
+      <created>1668221382128</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1668221382128</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Handling">
+      <created>1668223768528</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1668223768528</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Semi-Rabotaa :construction:">
+      <created>1668280506266</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1668280506266</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Semi-Rabotaa :construction:">
+      <created>1668306201836</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1668306201836</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Semi-Rabotaa :construction:">
+      <created>1668306210371</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1668306210371</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Show Tree :seedling:">
+      <created>1668355595595</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1668355595595</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Show Tree :seedling:">
+      <created>1668355712854</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1668355712854</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Show Tree :seedling:">
+      <created>1668361859025</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1668361859025</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Show Tree :seedling:">
+      <created>1668361929416</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1668361929416</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Show Tree :seedling:">
+      <created>1668361953828</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1668361953828</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Removing Warnings :wastebasket:">
+      <created>1668362543028</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1668362543028</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Tree" />
+    <MESSAGE value="Handling" />
+    <MESSAGE value="Semi-Rabotaa :construction:" />
+    <MESSAGE value="Show Tree :seedling:" />
+    <MESSAGE value="Removing Warnings :wastebasket:" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removing Warnings :wastebasket:" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Connect_4_AI$HelloApplication.ic" NAME="HelloApplication Coverage Results" MODIFIED="1668093862392" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.example.connect_4_ai.*</FILTER>
+    </SUITE>
+  </component>
+</project>
