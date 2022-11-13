@@ -1,7 +1,10 @@
 package com.example.connect_4_ai.Tree.Shapes;
 
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
+import javafx.scene.text.Text;
 
 public class Arrow implements Shape {
     private final double x1;
@@ -21,34 +24,32 @@ public class Arrow implements Shape {
 
     }
 
-    @Override
-    public void draw(GraphicsContext ctx) {
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2 - 5);
+    public void draw(Group root) {
+        Line line = new Line(x1, y1, x2, y2 - 5);
+        line.setFill(Color.BLACK.darker().darker().darker());
         double midX = (x1 + x2) / 2;
         double midY = (y1 + y2) / 2;
-        ctx.setFill(Color.BLACK.darker().darker().darker());
+        line.setStroke(Color.BLACK);
         if (this.col == this.chosenCol + 1) {
-            ctx.setFill(Color.RED.darker().darker().darker());
+            //line.setFill(Color.RED);
+            line.setStroke(Color.RED);
+            line.setStrokeWidth(2);
         }
-        ctx.fillText("" + this.col, midX - 8, midY);
-        ctx.setStroke(Color.BLACK);
-        if (this.col == this.chosenCol + 1) {
-            ctx.setStroke(Color.RED);
-            ctx.setLineWidth(2);
-        }
+        Text text = new Text(midX - 8, midY, "" + this.col);
+
+        //for the triangle
+        Polygon triangle = new Polygon();
+        triangle.getPoints().setAll(
+                x2 - 5, y2 - 5,
+                x2 + 5, y2 - 5,
+                x2, y2
+        );
+        triangle.setFill(Color.BLACK);
+        triangle.setStroke(Color.BLACK);
+        root.getChildren().addAll(line, text,triangle);
         //triangle for the arrow
-        ctx.stroke();
-        ctx.setFill(Color.BLACK);
-        ctx.beginPath();
-        ctx.moveTo(x2 - 5, y2 - 5);//point 1
-        ctx.lineTo(x2 + 5, y2 - 5);//point 2
-        ctx.lineTo(x2, y2);//point 3
-        ctx.closePath();// go back to point 1
-        ctx.setStroke(Color.BLACK);
-        ctx.fill();
-        ctx.stroke();
+
+
     }
 
 }

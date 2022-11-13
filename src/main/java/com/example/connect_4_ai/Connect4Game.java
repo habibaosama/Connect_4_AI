@@ -8,9 +8,7 @@ import com.example.connect_4_ai.utilities.Node;
 import com.example.connect_4_ai.utilities.Util;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -131,10 +129,10 @@ public class Connect4Game {
     }
 
     private void drawBoard(Stage stage) {
-        playerTurnLabel = createLabel("Player 1 Turn", 200);
+        playerTurnLabel = createLabel("Player 1 Turn", 220);
         score1Label = createLabel("Score " + score1, 360);
         score2Label = createLabel("Score " + score2, 450);
-        score1Label.setTextFill(Color.YELLOW);
+        score1Label.setTextFill(Color.rgb(255, 215, 0));
         score2Label.setTextFill(Color.RED);
         Button restartButton = new Button("Restart");
         restartButton.setFont(Font.font("Impact", FontWeight.BOLD, 20));
@@ -162,7 +160,7 @@ public class Connect4Game {
 
         Button treeButton = new Button("Tree");
         treeButton.setFont(Font.font("Impact", FontWeight.BOLD, 20));
-        treeButton.setLayoutX(180);
+        treeButton.setLayoutX(150);
         treeButton.setLayoutY(552);
         treeButton.setOnAction(e -> showTree());
 
@@ -214,21 +212,17 @@ public class Connect4Game {
     }
 
     public void showTree() {
-        Parent root;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("show-tree.fxml"));
-            root = loader.load();
-            ShowTreeController c = loader.getController();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setTitle("Tree");
-            c.showTree(node);
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Stage stage = new Stage();
+        ScrollPane pane = new ScrollPane();
+        int h = 800;
+        int w = 1500;
+        Group root = new Group();
+        ShowTreeController c = new ShowTreeController();
+        root = c.showTree(node,root);
+        pane.setContent(root);
+        Scene scene = new Scene(pane, w, h);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void draw(GraphicsContext context) {

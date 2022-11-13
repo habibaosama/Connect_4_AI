@@ -7,6 +7,7 @@ public abstract class ShapeAbstract implements Shape {
     protected int chosenCol;
     protected int value = 0;
 
+
     public void setCoordinates(double x, double y) {
         this.x_axis = x;
         this.y_axis = y;
