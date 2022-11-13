@@ -3,11 +3,11 @@ package com.example.connect_4_ai.Tree.Shapes;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class Arrow implements Shape{
-    private double x1 = 0;
-    private double y1 = 0;
-    private double x2 = 0;
-    private double y2 = 0;
+public class Arrow implements Shape {
+    private final double x1;
+    private final double y1;
+    private final double x2;
+    private final double y2;
     private final int chosenCol;
     private final int col;
 
@@ -17,7 +17,7 @@ public class Arrow implements Shape{
         this.y1 = shape1.getY_axis() + 40;
         this.x2 = shape2.getX_axis();
         this.y2 = shape2.getY_axis();
-        this.chosenCol= chosenCol;
+        this.chosenCol = chosenCol;
 
     }
 
@@ -29,12 +29,12 @@ public class Arrow implements Shape{
         double midX = (x1 + x2) / 2;
         double midY = (y1 + y2) / 2;
         ctx.setFill(Color.BLACK.darker().darker().darker());
-        if(this.col==this.chosenCol+1){
+        if (this.col == this.chosenCol + 1) {
             ctx.setFill(Color.RED.darker().darker().darker());
         }
         ctx.fillText("" + this.col, midX - 8, midY);
         ctx.setStroke(Color.BLACK);
-        if(this.col==this.chosenCol+1){
+        if (this.col == this.chosenCol + 1) {
             ctx.setStroke(Color.RED);
             ctx.setLineWidth(2);
         }
