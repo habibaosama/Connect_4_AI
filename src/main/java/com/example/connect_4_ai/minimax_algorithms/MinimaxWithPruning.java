@@ -1,4 +1,5 @@
 package com.example.connect_4_ai.minimax_algorithms;
+
 import com.example.connect_4_ai.utilities.Node;
 
 public class MinimaxWithPruning extends MiniMax {
@@ -6,14 +7,14 @@ public class MinimaxWithPruning extends MiniMax {
 
     @Override
     protected Node maximize(Node node, int level) {
-        return maximize(node ,level, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        return maximize(node, level, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
     //r ->cpu
     public Node maximize(Node node, int level, int alpha, int beta) {
         expandedNodes++;
         if (level == maxLevel || node.isTerminal()) {
-           // int eval = Evaluation.eval(board, 'r');
+            // int eval = Evaluation.eval(board, 'r');
             node.score = Evaluation.evaluateScore(node.state.board);
             fin = node;
             return node;
@@ -31,7 +32,7 @@ public class MinimaxWithPruning extends MiniMax {
 
             if (node.score >= beta)
                 break;
-            alpha = Math.max(alpha,node.score);
+            alpha = Math.max(alpha, node.score);
 //            System.out.println("level " + level + " " + node.score + " ");
         }
         fin = node;
@@ -43,7 +44,7 @@ public class MinimaxWithPruning extends MiniMax {
 
         expandedNodes++;
         if (level == maxLevel || node.isTerminal()) {
-           // int eval = Evaluation.eval(board, 'y');
+            // int eval = Evaluation.eval(board, 'y');
             node.score = Evaluation.evaluateScore(node.state.board);
             fin = node;
             return node;
@@ -60,7 +61,7 @@ public class MinimaxWithPruning extends MiniMax {
             }
             if (node.score <= alpha)
                 break;
-            beta = Math.min(beta,node.score);
+            beta = Math.min(beta, node.score);
         }
         fin = node;
         return node;

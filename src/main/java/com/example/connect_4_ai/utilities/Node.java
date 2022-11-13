@@ -9,6 +9,7 @@ public class Node {
     public List<Node> children;
     public int score;
     public int col;
+
     public Node(State state) {
         this.state = state;
         children = new ArrayList<>();
@@ -22,7 +23,7 @@ public class Node {
                 State childState = new State(state.board);
                 Node child = new Node(new State(Util.alternateBit(childState.applyChoice(col, isOpponent), 63)));
                 child.parent = this;
-                child.col=col;
+                child.col = col;
                 children.add(child);
             }
         }

@@ -36,8 +36,8 @@ public class Connect4Game {
     private boolean player1Turn = true;
     private final boolean singlePlayer;
     private final Alert alert;
-    private ImageView winIcon;
-    private ImageView loseIcon;
+    private final ImageView winIcon;
+    private final ImageView loseIcon;
     private final Image boardImage;
     private final Image redCircleImage;
     private final Image yellowCircleImage;
@@ -48,7 +48,7 @@ public class Connect4Game {
     private boolean minimax = true;
     private int k = 4;
 
-    public Connect4Game(boolean singlePlayer) throws FileNotFoundException {
+    public Connect4Game(boolean singlePlayer) {
         this.singlePlayer = singlePlayer;
         score1 = 0;
         score2 = 0;
@@ -164,19 +164,13 @@ public class Connect4Game {
         treeButton.setFont(Font.font("Impact", FontWeight.BOLD, 20));
         treeButton.setLayoutX(180);
         treeButton.setLayoutY(552);
-        treeButton.setOnAction(e -> {
-           showTree();
-        });
+        treeButton.setOnAction(e -> showTree());
 
         Canvas canvas = new Canvas(552, 552);
         GraphicsContext context = canvas.getGraphicsContext2D();
 
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-//            if (singlePlayer && !player1Turn) {
-//                return;
-//                // computer Game
-//                // check computer win
-//            }
+
             System.out.println(e.getX() + " " + e.getY());
             int colIndex = getColIndex(e.getX());
             System.out.println("Index of column : " + colIndex);
@@ -190,18 +184,18 @@ public class Connect4Game {
             }
             if (isFull()) {
                 draw(canvas.getGraphicsContext2D());
-                if (score2 > score1){
+                if (score2 > score1) {
                     alert.setGraphic(loseIcon);
                     alert.setTitle("You lost");
                     alert.setHeaderText("You're never a loser until you quit trying.:(");
                     alert.show();
 
-                }else if(score2 < score1){
+                } else if (score2 < score1) {
                     alert.setGraphic(winIcon);
                     alert.setTitle("WIN");
                     alert.setHeaderText("Congratulations :)");
                     alert.show();
-                }else{
+                } else {
                     alert.setGraphic(winIcon);
                     alert.setTitle("Tie");
                     alert.setHeaderText(":(");
@@ -213,7 +207,7 @@ public class Connect4Game {
         });
         context.drawImage(boardImage, 0, 0, 552, 552);
         Group root = new Group();
-        root.getChildren().addAll(canvas, playerTurnLabel, score1Label, score2Label, restartButton, backButton,treeButton);
+        root.getChildren().addAll(canvas, playerTurnLabel, score1Label, score2Label, restartButton, backButton, treeButton);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -404,9 +398,9 @@ public class Connect4Game {
 
         long bitsBoard = Util.char2dArrayToLong(board);
         bitsBoard = Util.setBit(bitsBoard, 63);
-        int col = max.Decision(bitsBoard,k);
+        int col = max.Decision(bitsBoard, k);
         node = max.root;
-        node.col=col;
+        node.col = col;
         return col;
     }
 }
