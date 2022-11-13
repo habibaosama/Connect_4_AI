@@ -83,7 +83,7 @@ public class ShowTreeController implements Initializable {
 
             constructShapes(children, cID);//set coordinates
             levels++;
-            System.out.println("");
+            System.out.println();
             parent = children;
             pID = cID;
             children = new LinkedList<>();
