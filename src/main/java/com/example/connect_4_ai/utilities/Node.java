@@ -9,6 +9,7 @@ public class Node {
     public List<Node> children;
     public int score;
     public int col;
+    public boolean visited = false;
 
     public Node(State state) {
         this.state = state;
@@ -27,7 +28,7 @@ public class Node {
                 children.add(child);
             }
         }
-        System.out.println("ll "+children.size());
+        System.out.println("ll " + children.size());
         return children;
     }
 

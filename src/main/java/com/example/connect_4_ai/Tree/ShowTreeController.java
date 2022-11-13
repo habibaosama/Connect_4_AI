@@ -17,10 +17,9 @@ public class ShowTreeController {
     public LinkedList<Integer> cID = new LinkedList<>();
     private HashMap<Integer, Shape> shapes;
     private double width = 100;
-    private final double middleCanvas=16384.0;
+    private final double middleCanvas = 16384.0;
     public int levels = 0;
     private int TotalIDs = 0;
-
 
 
     public Group showTree(Node rootState, Group root) {
@@ -30,7 +29,7 @@ public class ShowTreeController {
 
     public void setTree(Node evalState) {
         shapes = new HashMap<>();
-        ShapeAbstract shape = new TrapezoidUp(0, evalState.score);
+        ShapeAbstract shape = new TrapezoidUp(0, evalState.score, evalState.visited);
         shape.setCoordinates(middleCanvas, 0);
         shape.setChosenCol(evalState.col);
         //System.out.println(evalState.col);
@@ -58,10 +57,10 @@ public class ShowTreeController {
                     TotalIDs++;
                     children.add(child);
                     if (player == 'y') {//minimization
-                        shape = new trapezoidDown(parentId, child.score);
+                        shape = new trapezoidDown(parentId, child.score, child.visited);
                         shape.setChosenCol(child.getChosenCol());
                     } else {//maximization
-                        shape = new TrapezoidUp(parentId, child.score);
+                        shape = new TrapezoidUp(parentId, child.score, child.visited);
                         shape.setChosenCol(child.getChosenCol());
                     }
                     System.out.print("level " + levels + " score " + child.score + " || ");

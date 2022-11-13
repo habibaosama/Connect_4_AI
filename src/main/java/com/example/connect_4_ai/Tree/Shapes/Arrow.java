@@ -35,6 +35,7 @@ public class Arrow implements Shape {
             line.setStroke(Color.RED);
             line.setStrokeWidth(2);
         }
+
         Text text = new Text(midX - 8, midY, "" + this.col);
 
         //for the triangle
@@ -46,7 +47,7 @@ public class Arrow implements Shape {
         );
         triangle.setFill(Color.BLACK);
         triangle.setStroke(Color.BLACK);
-        root.getChildren().addAll(line, text,triangle);
+        root.getChildren().addAll(line, text, triangle);
         //triangle for the arrow
 
 

@@ -5,6 +5,7 @@ public abstract class ShapeAbstract implements Shape {
     protected double y_axis;
     protected int parentId;
     protected int chosenCol;
+    protected boolean visited;
     protected int value = 0;
 
 

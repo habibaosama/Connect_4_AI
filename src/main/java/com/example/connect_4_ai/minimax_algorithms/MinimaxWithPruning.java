@@ -13,6 +13,7 @@ public class MinimaxWithPruning extends MiniMax {
     //r ->cpu
     public Node maximize(Node node, int level, int alpha, int beta) {
         expandedNodes++;
+        node.visited = true;
         if (level == maxLevel || node.isTerminal()) {
             // int eval = Evaluation.eval(board, 'r');
             node.score = Evaluation.evaluateScore(node.state.board);
@@ -23,6 +24,7 @@ public class MinimaxWithPruning extends MiniMax {
         node.score = Integer.MIN_VALUE;
         for (Node child : node.expand()) {
             expandedNodes++;
+            child.visited = true;
             child = minimize(child, level + 1, alpha, beta);
 
             if (child.score > node.score) {
@@ -43,6 +45,7 @@ public class MinimaxWithPruning extends MiniMax {
     public Node minimize(Node node, int level, int alpha, int beta) {
 
         expandedNodes++;
+        node.visited = true;
         if (level == maxLevel || node.isTerminal()) {
             // int eval = Evaluation.eval(board, 'y');
             node.score = Evaluation.evaluateScore(node.state.board);
@@ -53,6 +56,7 @@ public class MinimaxWithPruning extends MiniMax {
         node.score = Integer.MAX_VALUE;
         for (Node child : node.expand()) {
             expandedNodes++;
+            child.visited = true;
             child = maximize(child, level + 1, alpha, beta);
 
             if (child.score < node.score) {

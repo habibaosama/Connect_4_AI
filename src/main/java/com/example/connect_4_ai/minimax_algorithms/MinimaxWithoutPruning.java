@@ -9,6 +9,7 @@ public class MinimaxWithoutPruning extends MiniMax {
     @Override
     public Node maximize(Node node, int level) {
         //   expandedNodes++;
+        node.visited = true;
         if (level == maxLevel || node.isTerminal()) {
             node.score = Evaluation.evaluateScore(node.state.board);
 //            System.out.println(maxLevel);
@@ -18,6 +19,7 @@ public class MinimaxWithoutPruning extends MiniMax {
         node.score = Integer.MIN_VALUE;
         for (Node child : node.expand()) {
             expandedNodes++;
+            child.visited = true;
             child = minimize(child, level + 1);
             // System.out.print("level " + level + " " + child.score + " ");
             if (child.score > node.score) {
@@ -31,6 +33,7 @@ public class MinimaxWithoutPruning extends MiniMax {
     }
 
     public Node minimize(Node node, int level) {
+        node.visited = true;
         //  expandedNodes++;
         if (level == maxLevel || node.isTerminal()) {
             // int eval = Evaluation.eval(board, 'y');
@@ -43,6 +46,7 @@ public class MinimaxWithoutPruning extends MiniMax {
         node.score = Integer.MAX_VALUE;
         for (Node child : node.expand()) {
             expandedNodes++;
+            child.visited = true;
             // long bit = Util.char2dArrayToLong(child);
             child = maximize(child, level + 1);
             //System.out.print("level " + level + " " + child.score + " ");
