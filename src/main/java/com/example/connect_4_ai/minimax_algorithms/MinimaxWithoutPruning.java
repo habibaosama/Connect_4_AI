@@ -1,62 +1,51 @@
 package com.example.connect_4_ai.minimax_algorithms;
-
-import com.example.connect_4_ai.NodeState;
-
-
-public class MinimaxWithoutPruning implements IMinimax{
-
-    public char[][] Decision(char[][] board) {
-        long startTime = System.currentTimeMillis();
-        char[][] res = maximize(board, 0).getBoard();
-        System.out.println((System.currentTimeMillis() - startTime) + " ms");
-        return res;
-    }
+import com.example.connect_4_ai.utilities.Node;
+import com.example.connect_4_ai.utilities.Util;
 
 
+public class MinimaxWithoutPruning extends MiniMax {
     //r ->cpu
-    public NodeState maximize(char[][] board, int level) {
-
-        if (level == 4 || EvaluationState.isTerminal(board)) {
-            int eval = Evaluation.evaluateScore(board);
-            //int eval = Evaluation.eval(board);
-            return new NodeState(null, eval);
+    @Override
+    public Node maximize(Node node, int level) {
+        char[][] board = Util.longToChar2dArray(node.state.board);
+        if (level == maxLevel || node.isTerminal()) {
+            node.score = Evaluation.evaluateScore(node.state.board);
+//            System.out.println(maxLevel);
+            return node;
         }
 
-        NodeState state = new NodeState(null, Integer.MIN_VALUE);
-        for (char[][] child : EvaluationState.getChildren(board, 'r')) {
-            NodeState childState = minimize(child, level + 1);
-            System.out.print("level "+ level +" "+ childState.score+" ");
-            if (childState.score > state.score)
-                state = new NodeState(child, childState.score);
-
-
+        node.score = Integer.MIN_VALUE;
+        for (Node child : node.expand()) {
+            child = minimize(child, level + 1);
+           // System.out.print("level " + level + " " + childState.score + " ");
+            if (child.score > node.score) {
+                node.score = child.score;
+                node.chosenNode = child;
+            }
         }
-        return state;
+        return node;
 
     }
 
-    public NodeState minimize(char[][] board, int level) {
-
-        if (level == 4 || EvaluationState.isTerminal(board)) {
-           // int eval = Evaluation.eval(board, 'y');
-             int eval = Evaluation.evaluateScore(board);
-            return new NodeState(null, eval);
+    public Node minimize(Node node, int level) {
+        char[][] board = Util.longToChar2dArray(node.state.board);
+        if (level == maxLevel || node.isTerminal()) {
+            // int eval = Evaluation.eval(board, 'y');
+            node.score = Evaluation.evaluateScore(node.state.board);
+            return node;
         }
 
-        NodeState state = new NodeState(null, Integer.MAX_VALUE);
-        for (char[][] child : EvaluationState.getChildren(board, 'y')) {
-            NodeState childState = maximize(child, level + 1);
-
-            System.out.print("level "+ level +" "+ childState.score+" ");
-
-            if (childState.score < state.score)
-                state = new NodeState(child, childState.score);
-
+        node.score = Integer.MAX_VALUE;
+        for (Node child : node.expand()) {
+           // long bit = Util.char2dArrayToLong(child);
+            child = maximize(child, level + 1);
+           // System.out.print("level " + level + " " + childState.score + " ");
+            if(child.score < node.score){
+                node.score = child.score;
+                node.chosenNode = child;
+            }
         }
-        System.out.println();
-        return state;
-
+        return node;
     }
-
 
 }

@@ -1,9 +1,14 @@
 package com.example.connect_4_ai.minimax_algorithms;
 
+import com.example.connect_4_ai.utilities.Util;
+
 public class Evaluation {
-    public static int ROWS =6;
-    public static int COLUMNS =7;
-    public static int evaluateScore(char[][] board){
+    public static int ROWS = 6;
+    public static int COLUMNS = 7;
+    public static int evaluateScore(long bitsBoard){
+        // convert the long to char array
+       char[][] board=Util.longToChar2dArray(bitsBoard);
+
         int score = 0;
         //Horizontal groups check
         for(int i = 0; i < ROWS; i++ )
