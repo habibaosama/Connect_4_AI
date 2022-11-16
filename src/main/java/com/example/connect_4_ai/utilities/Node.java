@@ -3,7 +3,7 @@ package com.example.connect_4_ai.utilities;
 import java.util.*;
 
 public class Node {
-    private Node parent;
+   // private Node parent;
     public Node chosenNode;
     public State state;
     public List<Node> children;
@@ -23,12 +23,12 @@ public class Node {
                 boolean isOpponent = Util.getBit(state.board, 63) == 0;
                 State childState = new State(state.board);
                 Node child = new Node(new State(Util.alternateBit(childState.applyChoice(col, isOpponent), 63)));
-                child.parent = this;
+               // child.parent = this;
                 child.col = col;
                 children.add(child);
             }
         }
-        System.out.println("ll " + children.size());
+       // System.out.println("ll " + children.size());
         return children;
     }
 

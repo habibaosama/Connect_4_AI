@@ -23,7 +23,7 @@ public class MinimaxWithPruning extends MiniMax {
 
         node.score = Integer.MIN_VALUE;
         for (Node child : node.expand()) {
-            expandedNodes++;
+          //  expandedNodes++;
             child.visited = true;
             child = minimize(child, level + 1, alpha, beta);
 
@@ -55,7 +55,7 @@ public class MinimaxWithPruning extends MiniMax {
 
         node.score = Integer.MAX_VALUE;
         for (Node child : node.expand()) {
-            expandedNodes++;
+           // expandedNodes++;
             child.visited = true;
             child = maximize(child, level + 1, alpha, beta);
 

@@ -25,6 +25,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 
+import static java.lang.Math.max;
+
 
 public class Connect4Game {
     // player 1 red || player 2 yellow
@@ -42,6 +44,10 @@ public class Connect4Game {
     private char[][] board;
     public final int[] lastRowIndices;
 
+    public long maxTime=0;
+    public long maxExpandedNodes=0;
+    public long time =0;
+    public long expandedNodes=0;
     public Node node;
     private boolean minimax = true;
     private int k = 4;
@@ -179,6 +185,10 @@ public class Connect4Game {
                 colIndex = playAI();
                 play(colIndex);
                 draw(context);
+                System.out.println("Average Time = "+time/21);
+                System.out.println("Average Expanded Nodes = "+expandedNodes/21);
+                System.out.println("Max Time = "+maxTime);
+                System.out.println("Max Expanded Nodes = "+maxExpandedNodes);
             }
             if (isFull()) {
                 draw(canvas.getGraphicsContext2D());
@@ -394,6 +404,10 @@ public class Connect4Game {
         bitsBoard = Util.setBit(bitsBoard, 63);
         int col = max.Decision(bitsBoard, k);
         node = max.root;
+        time+=max.time;
+        expandedNodes+=max.expandedNodes;
+        maxTime=max(maxTime,max.time);
+        maxExpandedNodes=max(maxExpandedNodes,max.expandedNodes);
         node.col = col;
         return col;
     }

@@ -89,7 +89,7 @@ public class ShowTreeController {
         double levelWidth = (IDList.size() * shapeWidth) + (IDList.size() - 1) * this.width;
         double x = this.middleCanvas - (levelWidth / 2);
         double inc = shapeWidth + this.width;
-        this.width = this.width / 5;
+        this.width = this.width / 2;
 
         Iterator<Node> itr1 = stateList.iterator();
         Iterator<Integer> itr2 = IDList.iterator();

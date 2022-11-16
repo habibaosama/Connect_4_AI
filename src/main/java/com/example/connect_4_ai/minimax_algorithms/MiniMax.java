@@ -8,12 +8,14 @@ public abstract class MiniMax {
     public Node root;
     public int expandedNodes = 1;
 
+    public long time;
     public int Decision(long bitsBoard, int k) {
         this.maxLevel = k;
         long startTime = System.currentTimeMillis();
         root = new Node(new State(bitsBoard));
-        System.out.println((System.currentTimeMillis() - startTime) + " ms");
         Node rot = maximize(root, 0);
+        time = (System.currentTimeMillis() - startTime);
+        System.out.println((System.currentTimeMillis() - startTime) + " ms");
         System.out.println("actual " + expandedNodes);
         return rot.getChosenCol();
 //        return Util.longToChar2dArray(maximize(root, 0).chosenNode.state.board);
