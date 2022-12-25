@@ -24,12 +24,12 @@
 
 ## User Guide and features 
 
-- First home screen :
+- ***First home screen :***
 
    - The user chooses to play with `computer` or `two players`
 
 
-- Second Game scene:
+- ***Second Game scene :***
 
    - The user defines the number of `levels` for the minimax algorithm max level for without pruning **8** and  with pruning **10**
 
@@ -37,7 +37,7 @@
    
     ![image](https://github.com/habibaosama/Connect_4_AI/blob/main/images/2nd%20page%20of%20single%20player.png)
 
-- Third Game Scene: 
+- ***Third Game Scene :*** 
    - The `score` of the computer and the player score are shown
 
    - The `Restart` button 
@@ -88,7 +88,7 @@
    - **2 opponent pieces and an empty place** (candidate point) -> -6
 
    - **middle column** -> 2 for every piece
-   
+
    - **2 columns beside middle column left and right of it** -> 1 for every piece
    (as the middle col increase the chance for the cpu to win more points)
 
